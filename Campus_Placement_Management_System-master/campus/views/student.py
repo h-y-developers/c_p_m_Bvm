@@ -227,7 +227,7 @@ def StudentProfileadd(request):
 
 def StudentProfileView(request):
     if request.user.is_authenticated and request.user.is_student:
-        if request.method == "POST" or 'ssc_result' or request.FILES or 'hsc_result' in request.FILES:
+        if request.method == "POST" or 'ssc_result' in request.FILES or 'hsc_result' in request.FILES:
             fname = request.POST.get('fname')
             lname = request.POST.get('lname')
             gender = request.POST.get('gender')
