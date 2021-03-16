@@ -8,6 +8,15 @@ from rest_framework import fields, serializers
 # Create your models here.
 
 
+
+class student_data(models.Model):
+    clg_id_no = models.CharField(max_length=100)
+    name = models.CharField(max_length=200)
+    email = models.EmailField(blank=True)
+
+
+
+
 class User(AbstractUser):
     is_student = models.BooleanField(default=False)
     is_faculty = models.BooleanField(default=False)

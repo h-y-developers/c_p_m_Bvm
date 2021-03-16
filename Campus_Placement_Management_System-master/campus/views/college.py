@@ -2,7 +2,7 @@ from django.shortcuts import redirect, render
 from django.views.generic import TemplateView
 from django.contrib.auth import logout, authenticate
 from django.contrib import messages
-from ..models import User
+from ..models import User,student_data
 from Campus_Management_System.settings import EMAIL_HOST_USER
 from django.core.mail import send_mail
 

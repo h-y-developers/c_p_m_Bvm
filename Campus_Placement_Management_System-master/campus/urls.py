@@ -42,6 +42,7 @@ from .views.faculty import (FacultyForgetPassView,FacultyLogoutView,FacultyLogin
 
 from .views.college import (home,LogoutView,ForgetPasswordView,ActivateView,ChangePasswordView)
 
+from .views.file_upload import (simple_upload)
 from django.contrib.auth import views as auth_views
 app_name = 'campus'
 
@@ -123,6 +124,7 @@ urlpatterns = [
     # path('faculty/materials', FacultyMaterialsView, name='faculty_material'),
     # path('faculty/view_Marks', FacultyMarksView, name='faculty_marks'),
     # path('faculty/student_data', FacultyStudentDataView, name='faculty_student_data'),
+    path('c_admin/add_student1',simple_upload, name="upload_excel_data"),
     path('c_admin/', AdminAddAdminView, name='admin_dashboard'),
     path('c_admin/index', AdminAddAdminView, name='admin_add_admin'),
     path('c_admin/add_company', AdminCompanyView, name='admin_add_company'),

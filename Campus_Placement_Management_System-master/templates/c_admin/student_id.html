@@ -58,14 +58,15 @@
         
         
          
-<form method="POST" action="">
+<form method="POST" enctype="multipart/form-data" action="/c_admin/add_student1">
+{% csrf_token %}
 <div class="row">       
         <div class="col-md-12 grid-margin stretch-card">
           <div class="card">
             <div class="card-body">
         <div class="form-group">
             <label>File upload</label>
-            <input type="file" name="img[]" class="file-upload-default">
+            <input type="file" name="xl_data" class="file-upload-default">
             <div class="input-group col-xs-12">
               <input type="text" class="form-control file-upload-info" disabled placeholder="Upload CSV File">
               <span class="input-group-append">
@@ -84,7 +85,7 @@
                   <i class="mdi mdi-file-check btn-icon-prepend"></i> Submit </button>
                
                 
-                  <button type="button" class="btn btn-danger btn-icon-text">
+                  <button type="cancel" class="btn btn-danger btn-icon-text">
                     <i class="mdi mdi-reload btn-icon-prepend"></i> Reset </button>
                   </div>
             
