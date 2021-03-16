@@ -36,7 +36,7 @@ from django.conf.urls import url
 
 from .views.c_admin import (AdminForgetPassView,AdminLogoutView,AdminLoginView,AdminStudentView, AdminFacultyView, AdminAddAdminView,AdminCompanyView)
 
-from .views.student import (shome,StudentCertificateView,StudentForgetPassView,StudentLogoutView,StudentLoginView,StudentProfileView, StudentDashboardView,StudentLoginView,StudentAchievementView,StudentExamView,StudentProjectView,StudentEventView,Studentproject)
+from .views.student import (shome,StudentCertificateView,StudentCertificateadd,StudentForgetPassView,StudentLogoutView,StudentLoginView,StudentProfileView, StudentProfileadd,StudentDashboardView,StudentLoginView,StudentAchievementView,StudentExamView,StudentProjectView,StudentEventView,Studentproject,StudentProjectadd)
 
 from .views.faculty import (FacultyForgetPassView,FacultyLogoutView,FacultyLoginView,FacultyDashboardView,FacultyProfileView,FacultyEventView,FacultyAddEventView)
 
@@ -98,17 +98,19 @@ urlpatterns = [
     # path('students/achievements', student.StudentAchievementView, name='student_achievements'),
     
     path('students/login',StudentLoginView,name="student_login"),
-    path('students/profile', StudentProfileView, name="student_profile"),
+    path('students/profile_submit', StudentProfileView, name="student_profile_submit"),
+    path('students/profile', StudentProfileadd, name="student_profile"),
     path('students/', StudentDashboardView, name='student_dashboard'),
     path('students/index', StudentDashboardView, name='student_dashboard'),
     path('students/exams', StudentExamView, name='student_exams'),
-    path('students/certificate', StudentCertificateView, name='student_cerificate'),
+    path('students/certi', StudentCertificateadd, name='student_cerificate'),
+    path('students/certi_submit', StudentCertificateView, name='student_cerificate_submit'),
     # path('students/assignments', StudentAssignmentView, name='student_assignments'),
-    path('students/add_projects', StudentProjectView, name='student_projects'),
+    path('students/add_projects', StudentProjectadd, name='student_projects'),
+    path('students/projects_submit', StudentProjectView, name='student_submit_projects'),
     path('students/projects', Studentproject, name='student_add_projects'),
     # path('students/timetable', StudentTimetableView, name='student_timetable'),
     path('students/achievements', StudentAchievementView, name='student_achievements'),
-    
     path('students/certi', StudentCertificateView, name='student_achievements'),
     path('students/logout', StudentLogoutView, name='student_logout'),
     path('students/forgetPassword', StudentForgetPassView, name='student_forget'),

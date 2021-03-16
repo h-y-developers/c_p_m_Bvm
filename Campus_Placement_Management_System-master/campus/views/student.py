@@ -115,7 +115,7 @@ from ..forms import DocumentForm
 #     success_url = reverse_lazy('students:students_profile')
 
 def shome(request):
-    return render(request,'students/login.html')
+    return redirect('/students/login')
 def StudentLoginView(request):
     if request.user.is_authenticated:
         return redirect('/students/index')
@@ -160,23 +160,32 @@ def StudentEventView(request):
         return render(request,"students/assignments.html")
     else:
         return redirect('students/login')
-
-def StudentCertificateView(request):
+def StudentCertificateadd(request):
     if request.user.is_authenticated and request.user.is_student:
-        if request.method == "POST":
-            certificate_name = request.POST.get('name')
-            issuer_name = request.POST.get('company')
-            certificate_img = request.FILES['certi']
-            form = Achievement(student_name= request.user.username,certificate_name=certificate_name,issuer_name=issuer_name,certificate_img=certificate_img)
-            # form = Achievements(request.POST,request.FILES)
-            form.save()
-            
-            return render(request,"students/achievements.html")
-        
         return render(request,"students/certificate.html")
     else:
         return redirect('students/login')
 
+def StudentCertificateView(request):
+    if request.user.is_authenticated and request.user.is_student:
+        if request.method == "POST" and 'certi' in request.FILES:
+            certificate_name = request.POST.get('name')
+            issuer_name = request.POST.get('company')
+            certificate_img = request.FILES['certi']
+            form = Achievement(certificate_name=certificate_name,issuer_name=issuer_name,certificate_img=certificate_img)
+            # form = Achievements(request.POST,request.FILES)
+            form.save()
+            return redirect('/students/achievements')
+            # return render(request,"students/achievements.html")
+        else:
+            return render(request,"students/certificate.html")
+    else:
+        return redirect('students/login')
+def StudentProjectadd(request):
+    if request.user.is_authenticated and request.user.is_student:
+        return render(request,"students/add_project.html")
+    else:
+        return redirect('students/login')
 def StudentExamView(request):
     if request.user.is_authenticated and request.user.is_student:
         return render(request,"students/exams.html")
@@ -201,23 +210,24 @@ def StudentProjectView(request):
             url = request.POST.get('url')
             form = Project(project_name=project_name,description=description,url=url)
             form.save()
-            return render(request,"students/projects.html")
+            return redirect('/students/projects')
+            # return render(request,"students/projects.html")
         else:
             return render(request,"students/add_project.html")
-    else:
+    
         return redirect('students/login')
 
-# def studentsProfileView(request):
-#     if request.user.is_authenticated and request.user.is_students:
-#         return render(request,"students/profile.html")
-#     else:
-#         return redirect('/login')
+def StudentProfileadd(request):
+    if request.user.is_authenticated and request.user.is_student:
+        return render(request,"students/profile.html")
+    else:
+        return redirect('students/login')
 
 
 
 def StudentProfileView(request):
     if request.user.is_authenticated and request.user.is_student:
-        if request.method == "POST":
+        if request.method == "POST" or 'ssc_result' or request.FILES or 'hsc_result' in request.FILES:
             fname = request.POST.get('fname')
             lname = request.POST.get('lname')
             gender = request.POST.get('gender')
@@ -235,9 +245,9 @@ def StudentProfileView(request):
             city = request.POST.get('city')
             country = request.POST.get('country')
             ssc = request.POST.get('ssc')
-            ssc_result = request.POST.get('ssc_result')
+            ssc_result = request.FILES['ssc_result']
             hsc = request.POST.get('hsc')
-            hsc_result = request.POST.get('hsc_result')
+            hsc_result = request.FILES['hsc_result']
             skills = request.POST.get('skills')
             interest = request.POST.get('interest')
             
@@ -250,16 +260,12 @@ def StudentProfileView(request):
             pincode=pincode,city=city,country=country,ssc=ssc,ssc_result=ssc_result,
             hsc=hsc,hsc_result=hsc_result,skills=skills,interest=interest)
             form.save()
-            return render(request,"students/index.html")
+            return redirect('/students/profile') 
+            # return render(request,"students/index.html")
 
         
-        return render(request,"students/profile.html")
-        
-    
-          
-    # else:
-    #     return HttpResponse("<h1>not happening</h1>")
-            
+        # return render(request,"students/profile.html")
+   
     else:
         return redirect('students/login')
      
