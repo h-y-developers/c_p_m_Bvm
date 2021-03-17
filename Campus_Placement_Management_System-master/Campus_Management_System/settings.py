@@ -147,11 +147,11 @@ EMAIL_HOST_USER = 'hydevelopersdesigners@gmail.com'
 EMAIL_HOST_PASSWORD = 'Harsh@251198'
 
 MESSAGE_TAGS = {
-    # messages.DEBUG: 'alert-secondary',
-    # messages.INFO: 'alert-info',
-    messages.SUCCESS: 'text-green',
-    # messages.WARNING: 'alert-warning',
-    messages.ERROR: 'alert-danger',
+    messages.DEBUG: 'text-secondary',
+    messages.INFO: 'text-info',
+    messages.SUCCESS: 'text-success',
+    messages.WARNING: 'text-warning',
+    messages.ERROR: 'text-danger',
 }
 
 # Internationalization

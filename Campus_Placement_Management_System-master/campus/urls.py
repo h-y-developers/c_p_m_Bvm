@@ -36,7 +36,7 @@ from django.conf.urls import url
 
 from .views.c_admin import (AdminForgetPassView,AdminLogoutView,AdminLoginView,AdminStudentView, AdminFacultyView, AdminAddAdminView,AdminCompanyView)
 
-from .views.student import (shome,StudentCertificateView,StudentForgetPassView,StudentLogoutView,StudentLoginView,StudentProfileView, StudentDashboardView,StudentLoginView,StudentAchievementView,StudentExamView,StudentProjectView,StudentEventView,Studentproject)
+from .views.student import (shome,StudentCertificateView,StudentForgetPassView,StudentLogoutView,StudentLoginView,StudentProfileView, StudentDashboardView,StudentLoginView,StudentAchievementView,StudentExamView,StudentProjectView,StudentEventView,Studentproject,studentsProfilesee)
 
 from .views.faculty import (FacultyForgetPassView,FacultyLogoutView,FacultyLoginView,FacultyDashboardView,FacultyProfileView,FacultyEventView,FacultyAddEventView)
 
@@ -98,11 +98,13 @@ urlpatterns = [
     # path('students/achievements', student.StudentAchievementView, name='student_achievements'),
     
     path('students/login',StudentLoginView,name="student_login"),
-    path('students/profile', StudentProfileView, name="student_profile"),
+    path('students/profile/<str:slug>', StudentProfileView, name="student_profile"),
+    path('students/profile_see', studentsProfilesee, name="student_profile_see"),
     path('students/', StudentDashboardView, name='student_dashboard'),
     path('students/index', StudentDashboardView, name='student_dashboard'),
     path('students/exams', StudentExamView, name='student_exams'),
-    path('students/certificate', StudentCertificateView, name='student_cerificate'),
+    path('students/add_achievement', StudentCertificateView, name='student_cerificate'),
+    path('students/certi_submit', StudentCertificateView, name='student_cerificate_submit'),
     # path('students/assignments', StudentAssignmentView, name='student_assignments'),
     path('students/add_projects', StudentProjectView, name='student_projects'),
     path('students/projects', Studentproject, name='student_add_projects'),
@@ -124,7 +126,7 @@ urlpatterns = [
     # path('faculty/materials', FacultyMaterialsView, name='faculty_material'),
     # path('faculty/view_Marks', FacultyMarksView, name='faculty_marks'),
     # path('faculty/student_data', FacultyStudentDataView, name='faculty_student_data'),
-    path('c_admin/add_student1',simple_upload, name="upload_excel_data"),
+    # path('c_admin/add_student1',simple_upload, name="upload_excel_data"),
     path('c_admin/', AdminAddAdminView, name='admin_dashboard'),
     path('c_admin/index', AdminAddAdminView, name='admin_add_admin'),
     path('c_admin/add_company', AdminCompanyView, name='admin_add_company'),

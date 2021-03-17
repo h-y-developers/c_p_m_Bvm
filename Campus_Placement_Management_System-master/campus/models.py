@@ -21,8 +21,11 @@ class User(AbstractUser):
     is_student = models.BooleanField(default=False)
     is_faculty = models.BooleanField(default=False)
     is_admin = models.BooleanField(default=False)
+    username = models.CharField(max_length=100,unique=True)
     email = models.CharField(max_length=100)
     is_pass_change = models.BooleanField(default=False)
+    dept = models.CharField(max_length=100,default="")
+    profile_pic = models.FileField(null=True,upload_to='profile_pictures/')
     slug = models.SlugField(unique=True, default=uuid.uuid1)
     college_name = models.CharField(max_length =100, default="BVM")
 
@@ -131,6 +134,8 @@ class Student(models.Model):
         ("bc","Block Chain"),("dm","Data Mining"),("py","Python"),("c","C/C++"),
         ("j","Java")
     )
+    Id_number = models.CharField(max_length=100,unique=True,default="")
+    slug = models.SlugField(unique=True,default="")
     fname = models.CharField(max_length=100,null=True)
     lname = models.CharField(max_length=100,null=True)
     gender = models.CharField(max_length=6,choices=boolChoice,null=True)
@@ -148,9 +153,9 @@ class Student(models.Model):
     city= models.CharField(max_length = 100,null=True)
     country = models.CharField(max_length = 100,null=True)
     ssc = models.CharField(max_length = 100,null=True)
-    ssc_result = models.FileField(null=True)
+    ssc_result = models.FileField(null=True,upload_to='ssc_results/')
     hsc = models.CharField(max_length = 100,null=True)
-    hsc_result = models.FileField(null=True)
+    hsc_result = models.FileField(null=True,upload_to='hsc_results/')
     skills = MultiSelectField(choices=boolschoice,null=True)
     interest = MultiSelectField(choices=boolichoice,null=True)
     # skills = fields.MultipleChoiceField(choices=boolschoice)
@@ -159,12 +164,13 @@ class Student(models.Model):
 
 
 class Achievement(models.Model):
+
     achieve_id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
     student_name = models.CharField(max_length=100)
     certificate_name= models.CharField(max_length = 100,blank=True)
     field_type = models.CharField(max_length=100)
     issuer_name = models.CharField(max_length = 100,blank=True)
-    certificate_img = models.FileField(upload_to='achievements/')
+    certificate_img = models.FileField(null=True,upload_to='achievements/')
     college_name = models.CharField(max_length =100, default="BVM")
 
     # class Meta:
@@ -234,14 +240,16 @@ class Faculties(models.Model):
     #     ("bc","Block Chain"),("dm","Data Mining"),("py","Python"),("c","C/C++"),
     #     ("j","Java")
     # )
+    Id_number = models.CharField(max_length=100,unique=True,default="")
+    slug = models.SlugField(unique=True,default="")
     fname = models.CharField(max_length=100,null=True)
     lname = models.CharField(max_length=100,null=True)
-    gender = models.CharField(max_length=1,choices=boolChoice,null=True)
+    gender = models.CharField(max_length=10,choices=boolChoice,null=True)
     dob = models.DateField(default=datetime.now())
     email = models.EmailField(max_length = 254,null=True)
     mobile = models.CharField(max_length=12,null=True)
     # role = models.CharField(max_length = 1,choices=boolrchoice,null=True)
-    dept = models.CharField(max_length = 1,choices=booldchoice,null=True)
+    dept = models.CharField(max_length = 10,choices=booldchoice,null=True)
     
     id_no = models.CharField(max_length=10,null=True)
     desg = models.CharField(max_length=100)
@@ -266,11 +274,11 @@ class Faculties(models.Model):
 class Project(models.Model):
     project_id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
     # subject_id = models.CharField(max_length=100)
-    student_id = models.CharField(max_length = 100)
+    student_name = models.CharField(max_length = 100)
     project_name= models.CharField(max_length = 100,blank=True)
     description = models.CharField(max_length = 500,blank=True)
     url = models.URLField(max_length=100,blank=True)
-    rating_star = models.CharField(max_length =3)
+    rating_star = models.CharField(max_length =3,default="0")
     college_name = models.CharField(max_length =100, default="BVM")
 
     # class Meta:

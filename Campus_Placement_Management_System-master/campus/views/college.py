@@ -21,7 +21,7 @@ def home(request):
         elif request.user.is_student:
             return redirect('/students/index')
         else:
-        	return render(request,'admin.html')
+        	return redirect('/c_admin/index')
     return redirect('/students/login')
 
 
@@ -32,9 +32,12 @@ def LogoutView(request):
     elif request.user.is_student:
         logout(request)
         return redirect('/students/login')
-    else:
+    elif request.user.is_admin:
         logout(request)
         return redirect('/c_admin/login')
+    else:
+        logout(request)
+        return redirect('/students/login')
 
 
 
@@ -43,7 +46,7 @@ def ForgetPasswordView(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         if username == '':
-            messages.info(request,"All fields are required")
+            messages.error(request,"All fields are required")
             return redirect('/forgetPassword')
         else:
             if User.objects.filter(username=username).exists():
@@ -71,7 +74,7 @@ def ForgetPasswordView(request):
                 messages.success(request,"Please check registered Email ID")
                 return redirect('/forgetPassword')
             else:
-                messages.info(request,"User does not exists")
+                messages.error(request,"User does not exists")
                 return redirect('/forgetPassword')
     else:
         context = {}
@@ -98,7 +101,7 @@ def ChangePasswordView(request,slug):
         user = User.objects.get(slug=slug)
         user.set_password(password)
         user.save()
-        messages.info(request,"Password has been changed.")
+        messages.success(request,"Password has been changed.")
         return redirect('/login')
 
     else:

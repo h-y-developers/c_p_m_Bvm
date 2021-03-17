@@ -124,7 +124,7 @@ def StudentLoginView(request):
             username = request.POST.get('susername')
             password =request.POST.get('spassword')
             if username == "" or password == "":
-                messages.info(request,"Please fill all the fields")
+                messages.error(request,"Please fill all the fields")
                 return redirect('/students/login')
             else:    
                 user = authenticate(request, username=username, password=password)
@@ -133,9 +133,9 @@ def StudentLoginView(request):
                         login(request, user)
                         return redirect('/students/index')
                     else:
-                        messages.info(request, 'You are not authorized as students')   
+                        messages.error(request, 'You are not authorized as students')   
                 else:
-                    messages.info(request, 'Username Or Password is incorrect')
+                    messages.error(request, 'Username Or Password is incorrect')
                     return redirect('/students/login')
             
         context = {}
@@ -163,15 +163,17 @@ def StudentEventView(request):
 
 def StudentCertificateView(request):
     if request.user.is_authenticated and request.user.is_student:
-        if request.method == "POST":
+        if request.method == "POST" and 'certi' in request.FILES:
             certificate_name = request.POST.get('name')
             issuer_name = request.POST.get('company')
+            field = request.POST.get('field')
             certificate_img = request.FILES['certi']
-            form = Achievement(student_name= request.user.username,certificate_name=certificate_name,issuer_name=issuer_name,certificate_img=certificate_img)
+            form = Achievement(student_name= request.user.username,certificate_name=certificate_name,issuer_name=issuer_name,field_type = field,certificate_img=certificate_img)
             # form = Achievements(request.POST,request.FILES)
             form.save()
-            
-            return render(request,"students/achievements.html")
+            messages.success(request,"Uploaded")
+            return redirect('/students/achievements')
+
         
         return render(request,"students/certificate.html")
     else:
@@ -185,12 +187,23 @@ def StudentExamView(request):
 
 def StudentAchievementView(request):
     if request.user.is_authenticated and request.user.is_student:
-        return render(request,"students/achievements.html")
+        achieve = Achievement.objects.filter(student_name = request.user.username)
+        context = {
+            'achievements':achieve
+        }
+        return render(request,"students/achievements.html",context)
     else:
         return redirect('students/login')    
 
 def Studentproject(request):
-    return render(request,"students/projects.html")
+    if request.user.is_authenticated and request.user.is_student:
+        project = Project.objects.filter(student_name = request.user.username)
+        context = {
+            'projects':project
+        }
+        return render(request,"students/projects.html",context)
+    else:
+        return redirect('students/login')    
 
 
 def StudentProjectView(request):
@@ -199,25 +212,26 @@ def StudentProjectView(request):
             project_name = request.POST.get('name')
             description = request.POST.get('desc')
             url = request.POST.get('url')
-            form = Project(project_name=project_name,description=description,url=url)
+            form = Project(student_name = request.user.username,project_name=project_name,description=description,url=url)
             form.save()
-            return render(request,"students/projects.html")
+            return redirect('/students/projects')
         else:
             return render(request,"students/add_project.html")
     else:
         return redirect('students/login')
 
-# def studentsProfileView(request):
-#     if request.user.is_authenticated and request.user.is_students:
-#         return render(request,"students/profile.html")
-#     else:
-#         return redirect('/login')
-
-
-
-def StudentProfileView(request):
+def studentsProfilesee(request):
     if request.user.is_authenticated and request.user.is_student:
-        if request.method == "POST":
+        return render(request,"students/profile.html")
+    else:
+        return redirect('/login')
+
+
+
+def StudentProfileView(request,slug):
+    if request.user.is_authenticated and request.user.is_student:
+        if request.method == "POST" and 'ssc_result' in request.FILES or 'hsc_result' in request.FILES:
+
             fname = request.POST.get('fname')
             lname = request.POST.get('lname')
             gender = request.POST.get('gender')
@@ -235,25 +249,37 @@ def StudentProfileView(request):
             city = request.POST.get('city')
             country = request.POST.get('country')
             ssc = request.POST.get('ssc')
-            ssc_result = request.POST.get('ssc_result')
+            ssc_res = request.FILES['ssc_result']
             hsc = request.POST.get('hsc')
-            hsc_result = request.POST.get('hsc_result')
+            hsc_res = request.FILES['hsc_result']
             skills = request.POST.get('skills')
             interest = request.POST.get('interest')
             
 
-            
+            userr = User.objects.get(slug = slug)
 
-            form = Student(fname=fname,lname=lname,gender=gender,dob=dob,email=email,
+            form = Student(Id_number= userr.username,slug = slug,fname=fname,lname=lname,gender=gender,dob=dob,email=email,
             mobile=mobile,dept=dept,enrollment=enrollment,id_no=id_no,
             permanent_address=permanent_address,state=state,resident_address=resident_address,
-            pincode=pincode,city=city,country=country,ssc=ssc,ssc_result=ssc_result,
-            hsc=hsc,hsc_result=hsc_result,skills=skills,interest=interest)
+            pincode=pincode,city=city,country=country,ssc=ssc,ssc_result=ssc_res,
+            hsc=hsc,hsc_result=hsc_res,skills=skills,interest=interest)
             form.save()
-            return render(request,"students/index.html")
+            url = '/students/profile/'+str(slug)
+            return redirect(url)
+
+        else:
+            usee = request.user.username
+            try:
+                userr = Student.objects.get(slug=slug)
+            except:
+                userr = None
+            context={
+                'student' : userr
+            }
+            return render(request,"students/profile.html",context)
 
         
-        return render(request,"students/profile.html")
+        
         
     
           

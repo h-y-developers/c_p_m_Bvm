@@ -7,11 +7,13 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.generic import CreateView, ListView, UpdateView,View
+from django.http import HttpResponse
+from .resources import studentResource
+from tablib import Dataset
 
 
 from ..decorators import admin_required
-from ..models import College, User
-
+from ..models import College, User, Student
 
 
 # @method_decorator([login_required, admin_required], name='dispatch')
@@ -59,13 +61,13 @@ from ..models import College, User
 
 def AdminLoginView(request):
     if request.user.is_authenticated:
-        return redirect('/students/index')
+        return redirect('/c_admin/index')
     else:
         if request.method == 'POST':
             username = request.POST.get('username')
             password =request.POST.get('password')
             if username == "" or password == "":
-                messages.info(request,"Please fill all the fields")
+                messages.error(request,"Please fill all the fields")
                 return redirect('/c_admin/login')
             else:    
                 user = authenticate(request, username=username, password=password)
@@ -74,9 +76,9 @@ def AdminLoginView(request):
                         login(request, user)
                         return redirect('/c_admin/index')
                     else:
-                        messages.info(request, 'You are not authorized as admin')   
+                        messages.error(request, 'You are not authorized as admin')   
                 else:
-                    messages.info(request, 'Username Or Password is incorrect')
+                    messages.error(request, 'Username Or Password is incorrect')
                     return redirect('/c_admin/login')
             
         context = {}
@@ -136,9 +138,73 @@ def AdminFacultyView(request):
         return redirect('/c_admin/login')
 
 
+
+
+FILE_FORMAT = ['xlsx','xls']
 # @method_decorator([login_required, admin_required], name='dispatch')
 def AdminStudentView(request):
     if request.user.is_authenticated and request.user.is_admin:
-        return render(request,"c_admin/student_id.html")
+        if request.method == "POST" and 'xl_data' in request.FILES:
+
+            student_resource = studentResource()
+            dataset = Dataset()
+            new_persons = request.FILES['xl_data']
+            # doc = new_persons
+            file_type = new_persons.name
+            file_type = file_type.lower()
+            if not file_type.endswith(".xlsx"):
+                messages.error(request,"Please upload xlsx or xls file")
+                return redirect('/c_admin/add_student')
+            else:
+                try:
+                    imported_data = dataset.load(new_persons.read(),format='xlsx')
+                    print(imported_data)
+                    for data in imported_data:
+                        # print(data[0])
+                        user = User(
+                            data[0],
+                            username = data[1],
+                            first_name = data[2],
+                            last_name = data[3],
+                            email = data[4],
+                            dept = data[5],
+                            is_student = True
+                           )
+                        # student = Student(
+                                
+                        #         Id_number = data[1]
+
+                        #     )
+
+                        user.set_password('Bvm@12345')
+                        # student.save()    
+                        user.save()
+
+                    messages.success(request,"File Uploaded")
+                    return redirect("/c_admin/add_student")  
+                except:
+                    messages.error(request,"Some Entry is repeated")
+                    return redirect("/c_admin/add_student")    
+                 
+        else:
+            return render(request,"c_admin/student_id.html")
+
+
+                    
+            # result = student_resource.import_data(dataset, dry_run=True)  # Test the data import
+
+            # if not result.has_errors():
+            #    student_resource.import_data(dataset, dry_run=False)  # Actually import now
+
+        
     else:
         return redirect('/c_admin/login')
+
+
+
+def export(request):
+    student_resource1 = studentResource()
+    dataset = student_resource1.export()
+    response = HttpResponse(dataset.xls, content_type='application/vnd.ms-excel')
+    response['Content-Disposition'] = 'attachment; filename="student.xls"'
+    return response

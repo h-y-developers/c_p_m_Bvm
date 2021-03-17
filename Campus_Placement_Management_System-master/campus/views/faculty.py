@@ -24,7 +24,7 @@ def FacultyLoginView(request):
             password =request.POST.get('fpassword')
             user = authenticate(request, username=username, password=password)
             if username == "" or password == "":
-                messages.info(request,"Please fill all the fields")
+                messages.error(request,"Please fill all the fields")
                 return redirect('/faculty/login')
             else:    
                 user = authenticate(request, username=username, password=password)
@@ -33,9 +33,9 @@ def FacultyLoginView(request):
                         login(request, user)
                         return redirect('/faculty/index')
                     else:
-                        messages.info(request,"You are not authorized as faculty")   
+                        messages.error(request,"You are not authorized as faculty")   
                 else:
-                    messages.info(request,"Username Or Password is incorrect")
+                    messages.error(request,"Username Or Password is incorrect")
                     return redirect('/faculty/login')
             
         context = {}

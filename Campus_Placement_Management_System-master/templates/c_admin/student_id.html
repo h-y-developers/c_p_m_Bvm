@@ -11,7 +11,7 @@
         <!-- main content -->
         <div class="main-panel">
         <div class="content-wrapper">
-            <div class="content">
+            <div class="content mb-4">
                 <h4><b><center>BVM College of Engineering</center></b></h4>
             </div>
           {% comment %} <div class="row">
@@ -58,38 +58,47 @@
         
         
          
-<form method="POST" enctype="multipart/form-data" action="/c_admin/add_student1">
+<form method="POST" enctype="multipart/form-data" action="/c_admin/add_student">
 {% csrf_token %}
 <div class="row">       
         <div class="col-md-12 grid-margin stretch-card">
           <div class="card">
             <div class="card-body">
         <div class="form-group">
-            <label>File upload</label>
-            <input type="file" name="xl_data" class="file-upload-default">
+            <label class="mb-4">File upload</label>
+            <input type="file" name="xl_data" class="file-upload-default" required>
             <div class="input-group col-xs-12">
-              <input type="text" class="form-control file-upload-info" disabled placeholder="Upload CSV File">
+              <input type="text" class="form-control file-upload-info" disabled placeholder="Upload CSV File" required>
               <span class="input-group-append">
                 <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
               </span>
+            </div>
+            {% for message in messages %}
+                <div class="form-group mt-4 mb-4 {{ message.tags }} alert-dismissible fade show" role="alert">
+                  {{ message }}
+                  
+                </div>
+                {% endfor %}
+                <div class="form-group row">
+              <div class="col-md-12 mt-4 text-center">
+                
+                <button type="submit" class="btn btn-primary btn-icon-text mr-4">
+                  <i class="mdi mdi-file-check btn-icon-prepend"></i> Submit </button>
+
+                <a href="#" download="Student_template.xlsx" type="submit" class="btn btn-info btn-icon-text mr-4">
+                  <i class="mdi mdi-download btn-icon-prepend"></i> Download Template </a>
+               
+                
+                 
+                  </div>
+            
             </div>
           </div>
           </div>
           </div>
           </div>
 
-           <div class="row">
-              <div class="col-md-12 mt-4 text-center">
-                
-                <button type="submit" class="btn btn-primary btn-icon-text mr-4">
-                  <i class="mdi mdi-file-check btn-icon-prepend"></i> Submit </button>
-               
-                
-                  <button type="cancel" class="btn btn-danger btn-icon-text">
-                    <i class="mdi mdi-reload btn-icon-prepend"></i> Reset </button>
-                  </div>
-            
-            </div>
+           
           </form>
           </div>
           

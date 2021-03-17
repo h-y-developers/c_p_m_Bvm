@@ -1,45 +1,8 @@
 {% extends 'base.html' %}
-{% comment %} {% extends 'base.html' %} {% endcomment %}
+
 {% load static %}
 {% block content %}
-  {% comment %} <head>
   
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Profile Form</title>
-    <!-- plugins:css -->
-    <link rel="stylesheet" href="{% static 'assets/vendors/mdi/css/materialdesignicons.min.css'%}">
-    <link rel="stylesheet" href="{% static 'assets/vendors/css/vendor.bundle.base.css'%}">
-    <!-- endinject -->
-    <!-- Plugin css for this page -->
-    <link rel="stylesheet" href="{% static 'assets/vendors/select2/select2.min.css'%}">
-    <link rel="stylesheet" href="{% static 'assets/vendors/select2-bootstrap-theme/select2-bootstrap.min.css'%}">
-    <!-- End plugin css for this page -->
-    <!-- inject:css -->
-    <!-- endinject -->
-    <!-- Layout styles -->
-    <link rel="stylesheet" href="{% static 'assets/css/style.css'%}">
-    <!-- End layout styles -->
-    <link rel="shortcut icon" href="{% static 'assets/images/favicon.png'%}" />
-  </head> {% endcomment %}
-  <head>
-  
-  <link rel="stylesheet" href="{% static 'assets/vendors/mdi/css/materialdesignicons.min.css' %}">
-    <link rel="stylesheet" href=" {% static 'assets/vendors/css/vendor.bundle.base.css' %} ">
-    <!-- endinject -->
-    <!-- Plugin css for this page -->
-    <link rel="stylesheet" href=" {% static 'assets/vendors/select2/select2.min.css' %} ">
-    <link rel="stylesheet" href="{% static 'assets/vendors/select2-bootstrap-theme/select2-bootstrap.min.css' %}">
-    <!-- End plugin css for this page -->
-    <!-- inject:css -->
-    <!-- endinject -->
-    <!-- Layout styles -->
-    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
-    <!-- End layout styles -->
-    <link rel="shortcut icon" href="{% static 'assets/images/favicon.png' %} " />
-
-  </head>
   <div class="container-scroller">
    {% include 'navbar.html' %}
    <div class="container-fluid page-body-wrapper">
@@ -49,7 +12,7 @@
     
 <div class="main-panel">
 <div class="content-wrapper">
-<form method="POST" action="/students/profile">
+<form method="POST" action="/students/profile/{{ request.user.slug }}">
   {% csrf_token %}
     <div class="col-12 grid-margin">
       <div class="card">
@@ -65,7 +28,7 @@
                 <div class="form-group row">
                   <label class="col-sm-3 col-form-label">First Name</label>
                   <div class="col-sm-8">
-                    <input type="text"  name="fname" class="form-control" />
+                    <input type="text"  name="fname" class="form-control" value="{{ student.fname }}" />
                   </div>
                 </div>
               </div>
@@ -73,7 +36,7 @@
                 <div class="form-group row">
                   <label class="col-sm-3 col-form-label">Last Name</label>
                   <div class="col-sm-8">
-                    <input type="text" name="lname" class="form-control" />
+                    <input type="text" name="lname" class="form-control" value="{{ student.lname }}" />
                   </div>
                 </div>
               </div>
@@ -84,8 +47,16 @@
                   <label class="col-sm-3 col-form-label">Gender</label>
                   <div class="col-sm-8">
                     <select  name="gender" class="form-control">
-                      <option value="Male">Male</option>
-                      <option value="Female">Female</option>
+                    {% if student.gender == 'Male' %}
+                        <option value="Male" selected="selected">Male</option>
+                        <option value="Female">Female</option>                          
+                    {% else %}
+                        <option value="Male">Male</option>
+                        <option value="Female" selected="selected">Female</option>  
+                    {% endif %}
+                    
+                      
+                      
                     </select>
                   </div>
                 </div>
@@ -94,7 +65,7 @@
                 <div class="form-group row">
                   <label class="col-sm-3 col-form-label">Date of Birth</label>
                   <div class="col-sm-8">
-                    <input type="date"  name="dob" class="form-control" placeholder="" />
+                    <input type="date"  name="dob" class="form-control" placeholder=""  value="{{ student.dob }}"/>
                   </div>
                 </div>
               </div>
@@ -104,7 +75,7 @@
                 <div class="form-group row">
                   <label class="col-sm-3 col-form-label">Email</label>
                   <div class="col-sm-8">
-                    <input type="text" name="email" class="form-control" placeholder="Email ID" />
+                    <input type="text" name="email" class="form-control" placeholder="Email ID"  value="{{ student.email }}"/>
                   </div>
                 </div>
               </div>
@@ -112,7 +83,7 @@
                 <div class="form-group row">
                   <label class="col-sm-3 col-form-label">Mobile No.</label>
                   <div class="col-sm-8">
-                    <input type="text" name="mobile" class="form-control" placeholder="Mobile No." />
+                    <input type="text" name="mobile" class="form-control" placeholder="Mobile No." value="{{ student.mobile }}" />
                   </div>
                 </div>
               </div>
@@ -137,14 +108,65 @@
                 <div class="form-group row">
                   <label class="col-sm-3 col-form-label">Department</label>
                   <div class="col-sm-8">
-                    <select name="dept" class="form-control">
-                      <option  value="Mechanical" >Mechanical</option>
+                    <select name="dept" class="form-control" value="{{ student.dept }}">
+                      {% if student.dept == 'Mechanical' %}
+                        <option  value="Mechanical" selected="selected">Mechanical</option>
                       <option  value="EC">EC</option>
                       <option  value="Civil">Civil</option>
                       <option  value="IT">IT</option>
                       <option  value="EL">EL</option>
                       <option  value="EE">EE</option>
                       <option  value="Production">Production</option>
+                      {% elif student.dept == 'EC' %}
+                        <option  value="Mechanical">Mechanical</option>
+                      <option  value="EC" selected="selected">EC</option>
+                      <option  value="Civil">Civil</option>
+                      <option  value="IT">IT</option>
+                      <option  value="EL">EL</option>
+                      <option  value="EE">EE</option>
+                      <option  value="Production">Production</option> 
+                       {% elif student.dept == 'Civil' %}
+                       <option  value="Mechanical">Mechanical</option>
+                      <option  value="EC">EC</option>
+                      <option  value="Civil" selected="selected">Civil</option>
+                      <option  value="IT">IT</option>
+                      <option  value="EL">EL</option>
+                      <option  value="EE">EE</option>
+                      <option  value="Production">Production</option>
+                        {% elif student.dept == 'IT' %}
+                        <option  value="Mechanical">Mechanical</option>
+                      <option  value="EC">EC</option>
+                      <option  value="Civil">Civil</option>
+                      <option  value="IT" selected="selected">IT</option>
+                      <option  value="EL">EL</option>
+                      <option  value="EE">EE</option>
+                      <option  value="Production">Production</option>
+                         {% elif student.dept == 'EL' %}
+                         <option  value="Mechanical">Mechanical</option>
+                      <option  value="EC">EC</option>
+                      <option  value="Civil">Civil</option>
+                      <option  value="IT">IT</option>
+                      <option  value="EL" selected="selected">EL</option>
+                      <option  value="EE">EE</option>
+                      <option  value="Production">Production</option>
+                          {% elif student.dept == 'EE' %}
+                          <option  value="Mechanical">Mechanical</option>
+                      <option  value="EC">EC</option>
+                      <option  value="Civil">Civil</option>
+                      <option  value="IT">IT</option>
+                      <option  value="EL">EL</option>
+                      <option  value="EE" selected="selected">EE</option>
+                      <option  value="Production">Production</option>
+                        {% else %}
+                        <option  value="Mechanical">Mechanical</option>
+                      <option  value="EC">EC</option>
+                      <option  value="Civil">Civil</option>
+                      <option  value="IT">IT</option>
+                      <option  value="EL">EL</option>
+                      <option  value="EE">EE</option>
+                      <option  value="Production" selected="selected">Production</option>
+                      {% endif %}
+                      
                       
                     </select>
                   </div>
@@ -160,7 +182,7 @@
                 <div class="form-group row">
                   <label class="col-sm-3 col-form-label">Enrollment no</label>
                   <div class="col-sm-8">
-                    <input type="text" name="enrollment" class="form-control" placeholder="Enrollment no" />
+                    <input type="text" name="enrollment" class="form-control" placeholder="Enrollment no" value="{{ student.enrollment }}" />
                   </div>
                 </div>
               </div>
@@ -168,7 +190,7 @@
                 <div class="form-group row">
                   <label class="col-sm-3 col-form-label">ID no</label>
                   <div class="col-sm-8">
-                    <input type="text"  name="id_no"class="form-control" placeholder="ID no"/>
+                    <input type="text"  name="id_no"class="form-control" placeholder="ID no" value="{{ student.id_no }}"/>
                   </div>
                 </div>
               </div>
@@ -183,7 +205,7 @@
                 <div class="form-group row">
                   <label class="col-sm-3 col-form-label">Permanent Address</label>
                   <div class="col-sm-8">
-                    <input type="text" name="permanent_address" class="form-control" />
+                    <input type="text" name="permanent_address" class="form-control"  value="{{ student.permanent_address }}"/>
                   </div>
                 </div>
               </div>
@@ -191,7 +213,7 @@
                 <div class="form-group row">
                   <label class="col-sm-3 col-form-label">State</label>
                   <div class="col-sm-8">
-                    <input type="text"  name="state" class="form-control" />
+                    <input type="text"  name="state" class="form-control"  value="{{ student.state }}" />
                   </div>
                 </div>
               </div>
@@ -201,7 +223,7 @@
                 <div class="form-group row">
                   <label class="col-sm-3 col-form-label">Resident Address</label>
                   <div class="col-sm-8">
-                    <input type="text" name="resident_address"class="form-control" />
+                    <input type="text" name="resident_address"class="form-control"  value="{{ student.resident_address }}" />
                   </div>
                 </div>
               </div>
@@ -209,7 +231,7 @@
                 <div class="form-group row">
                   <label class="col-sm-3 col-form-label">Postcode</label>
                   <div class="col-sm-8">
-                    <input type="text" name="pincode" class="form-control" />
+                    <input type="text" name="pincode" class="form-control"  value="{{ student.pincode }}" />
                   </div>
                 </div>
               </div>
@@ -219,7 +241,7 @@
                 <div class="form-group row">
                   <label class="col-sm-3 col-form-label">City</label>
                   <div class="col-sm-8">
-                    <input type="text" name="city" class="form-control" />
+                    <input type="text" name="city" class="form-control"   value="{{ student.city }}"/>
                   </div>
                 </div>
               </div>
@@ -227,7 +249,7 @@
                 <div class="form-group row">
                   <label class="col-sm-3 col-form-label">Country</label>
                   <div class="col-sm-8">
-                    <input type="text" name="country" class="form-control" placeholder="ex. India" />
+                    <input type="text" name="country" class="form-control" placeholder="ex. India"  value="{{ student.country }}" />
                   </div>
                 </div>
               </div>
@@ -242,25 +264,23 @@
                 <div class="form-group row">
                   <label class="col-sm-3 col-form-label">SSC School name</label>
                   <div class="col-sm-8">
-                    <input type="text" name="ssc" class="form-control" placeholder="ex. saint Xaviers" />
+                    <input type="text" name="ssc" class="form-control" placeholder="ex. saint Xaviers"   value="{{ student.ssc }}"/>
                   </div>
                 </div>
               </div>
               <div class="col-md-6">
-                <div class="form-group row">
-                  <label class="col-sm-3 col-form-label">File upload</label>
-                    <input type="file" name="ssc_result" class="file-upload">
-                  <div class="col-sm-8">
-                        {% comment %} <div class="input-group col-xs-12">
-                          <input type="text" class="form-control file-upload-info" disabled placeholder="Upload Image">
-                          <span class="input-group-append">
-                            <button class="btn btn-success btn-icon-text">
-                              <i class="mdi mdi-upload btn-icon-prepend"></i> Upload </button>
-                           
-                          </span>
-                        </div> {% endcomment %}
-                  </div>
-                </div>
+                 <div class="form-group row">
+            <label class="col-sm-3 col-form-label">SSC Result</label>
+            <input type="file" name="ssc_result" class="file-upload-default">
+
+            <div class="input-group col-sm-8">
+              <input type="text" class="form-control file-upload-info" placeholder="Upload SSC Result" >
+              <span class="input-group-append">
+                <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
+              </span>
+            </div>
+                       </div>
+              </div>
               </div>
               
               
@@ -270,25 +290,22 @@
                 <div class="form-group row">
                   <label class="col-sm-3 col-form-label">HSC School name</label>
                   <div class="col-sm-8">
-                    <input type="text" name="hsc" class="form-control" placeholder="ex. saint Xaviers" />
+                    <input type="text" name="hsc" class="form-control" placeholder="ex. saint Xaviers"  value="{{ student.hsc }}" />
                   </div>
                 </div>
               </div>
               <div class="col-md-6">
-                <div class="form-group row">
-                  <label class="col-sm-3 col-form-label">File upload</label>
-                    <input type="file" name="hsc_result" class="file-upload">
-                  <div class="col-sm-8">
-                        {% comment %} <div class="input-group col-xs-12">
-                          <input type="text" class="form-control file-upload-info" disabled placeholder="Upload Image">
-                          <span class="input-group-append">
-                            <button  class="btn btn-success btn-icon-text">
-                              <i class="mdi mdi-upload btn-icon-prepend"></i> Upload </button>
-                           
-                          </span>
-                        </div> {% endcomment %}
-                  </div>
-                </div>
+                 <div class="form-group row">
+            <label class="col-sm-3 col-form-label">HSC Result</label>
+            <input type="file" name="hsc_result" class="file-upload-default" >
+
+            <div class="input-group col-sm-8">
+              <input type="text" class="form-control file-upload-info" disabled placeholder="Upload HSC Result" >
+              <span class="input-group-append">
+                <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
+              </span>
+            </div>
+                       </div>
               </div>
             </div>
             
@@ -303,7 +320,7 @@
                 <div class="form-group row">
                   <label class="col-sm-3 col-form-label">Skills</label>
                   <div class="col-sm-8">
-                  <select  name="skills" class="js-example-basic-multiple" multiple="multiple" style="width:100%">
+                  <select  name="skills" class="js-example-basic-multiple" multiple="multiple"  value="{{ student.skills }}" style="width:100%">
                     <option value="wd">Web Development</option>
                     <option value="ad">App Development</option>
                     <option value="cd">Cloud Computing</option>
@@ -324,7 +341,7 @@
                 <div class="form-group row">
                   <label class="col-sm-3 col-form-label">Area Of Interest</label>
                   <div class="col-sm-8">
-                  <select name="interest" class="js-example-basic-multiple" multiple="multiple" style="width:100%">
+                  <select name="interest" class="js-example-basic-multiple" multiple="multiple"  value="{{ student.interest }}" style="width:100%">
                     <option value="wd">Web Development</option>
                     <option value="ad">App Development</option>
                     <option value="cd">Cloud Computing</option>

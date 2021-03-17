@@ -23,11 +23,12 @@
                                           <!-- </form> -->
                                         </nav>
                                       </div>
-                                      
-                                      {% for message in messages %}
-                                      
-                                      <p id="messages" style="color: red;">{{message}}</p>
-                                    {% endfor %}  
+                          {% for message in messages %}
+                <div class="form-group mt-4 mb-4 {{ message.tags }} alert-dismissible fade show" role="alert">
+                  {{ message }}
+                  
+                </div>
+                {% endfor %}
                                       <div class="form_contain mt-4">
                                         <form class="  student_form form_active" method="POST" style="display: block;">
                                           {% csrf_token %}
