@@ -157,6 +157,7 @@ class Student(models.Model):
     hsc = models.CharField(max_length = 100,null=True)
     hsc_result = models.FileField(null=True,upload_to='hsc_results/')
     skills = MultiSelectField(choices=boolschoice,null=True)
+    # skills = models.SelectMultipleField(max_length=15,choices = boolschoice)
     interest = MultiSelectField(choices=boolichoice,null=True)
     # skills = fields.MultipleChoiceField(choices=boolschoice)
     # interest = fields.MultipleChoiceField(choices=boolschoice)

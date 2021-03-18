@@ -2,396 +2,423 @@
 
 {% load static %}
 {% block content %}
-  
-  <div class="container-scroller">
-   {% include 'navbar.html' %}
-   <div class="container-fluid page-body-wrapper">
-        <!-- partial:partials/_navbar.html -->
-       
 
-    
-<div class="main-panel">
-<div class="content-wrapper">
-<form method="POST" action="/students/profile/{{ request.user.slug }}">
-  {% csrf_token %}
-    <div class="col-12 grid-margin">
-      <div class="card">
-        <div class="card-body">
-          <h4 class="card-title">Student Details Form</h4>
-          <div class="form-sample">
-            <br>
-            <div class="card-description mt-6 mb-4 seperator"></div>
-            <center><span class="detail_tag text-center">Personal info</span></center>
-            <br>  
-            <div class="row">
-              <div class="col-md-6">
-                <div class="form-group row">
-                  <label class="col-sm-3 col-form-label">First Name</label>
-                  <div class="col-sm-8">
-                    <input type="text"  name="fname" class="form-control" value="{{ student.fname }}" />
-                  </div>
+<div class="container-scroller">
+  {% include 'navbar.html' %}
+  <div class="container-fluid page-body-wrapper">
+    <!-- partial:partials/_navbar.html -->
+
+
+
+    <div class="main-panel">
+      <div class="content-wrapper">
+        <form method="POST" action="/students/profile/{{ request.user.slug }}/update" enctype="multipart/form-data">
+          {% csrf_token %}
+          <div class="col-12 grid-margin">
+            <div class="card">
+              <div class="card-body">
+                <h4 class="card-title">Student Details Form</h4>
+                {% for message in messages %}
+                <div class="form-group mt-4 mb-4 {{ message.tags }} alert-dismissible fade show" role="alert">
+                  {{ message }}
+                  
                 </div>
-              </div>
-              <div class="col-md-6">
-                <div class="form-group row">
-                  <label class="col-sm-3 col-form-label">Last Name</label>
-                  <div class="col-sm-8">
-                    <input type="text" name="lname" class="form-control" value="{{ student.lname }}" />
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-6">
-                <div class="form-group row">
-                  <label class="col-sm-3 col-form-label">Gender</label>
-                  <div class="col-sm-8">
-                    <select  name="gender" class="form-control">
-                    {% if student.gender == 'Male' %}
-                        <option value="Male" selected="selected">Male</option>
-                        <option value="Female">Female</option>                          
-                    {% else %}
-                        <option value="Male">Male</option>
-                        <option value="Female" selected="selected">Female</option>  
-                    {% endif %}
-                    
-                      
-                      
-                    </select>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="form-group row">
-                  <label class="col-sm-3 col-form-label">Date of Birth</label>
-                  <div class="col-sm-8">
-                    <input type="date"  name="dob" class="form-control" placeholder=""  value="{{ student.dob }}"/>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-6">
-                <div class="form-group row">
-                  <label class="col-sm-3 col-form-label">Email</label>
-                  <div class="col-sm-8">
-                    <input type="text" name="email" class="form-control" placeholder="Email ID"  value="{{ student.email }}"/>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="form-group row">
-                  <label class="col-sm-3 col-form-label">Mobile No.</label>
-                  <div class="col-sm-8">
-                    <input type="text" name="mobile" class="form-control" placeholder="Mobile No." value="{{ student.mobile }}" />
-                  </div>
-                </div>
-              </div>
-              {% comment %} <div class="col-md-6">
-                <div class="form-group row">
-                  <label class="col-sm-3 col-form-label">Role</label>
-                  <div class="col-sm-4">
-                    <div class="form-check">
-                      <label class="form-check-label">
-                        <input type="radio"  class="form-check-input" name="role" id="student" value="Student" > Student </label>
+                {% endfor %}
+                <div class="form-sample">
+                  <br>
+                  <div class="card-description mt-6 mb-4 seperator"></div>
+                  <center><span class="detail_tag text-center">Personal info</span></center>
+                  <br>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">First Name</label>
+                        <div class="col-sm-8">
+                          <input type="text" name="fname" class="form-control" value="{{ student.fname }}" />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Last Name</label>
+                        <div class="col-sm-8">
+                          <input type="text" name="lname" class="form-control" value="{{ student.lname }}" />
+                        </div>
+                      </div>
                     </div>
                   </div>
-                  <div class="col-sm-5">
-                    <div class="form-check">
-                      <label class="form-check-label">
-                        <input type="radio" class="form-check-input" name="role" id="staff" value="Staff"> Staff </label>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Gender</label>
+                        <div class="col-sm-8">
+                          <select name="gender" class="form-control">
+                            {% if student.gender == 'Male' %}
+                            <option value="Male" selected="selected">Male</option>
+                            <option value="Female">Female</option>
+                            {% else %}
+                            <option value="Male">Male</option>
+                            <option value="Female" selected="selected">Female</option>
+                            {% endif %}
+
+
+
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Date of Birth</label>
+                        <div class="col-sm-8">
+                          <input type="date" name="dob" class="dob form-control" placeholder="" value="{{student.dob|date:'Y-m-d' }}" />
+                        </div>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </div> {% endcomment %}
-              <div class="col-md-6">
-                <div class="form-group row">
-                  <label class="col-sm-3 col-form-label">Department</label>
-                  <div class="col-sm-8">
-                    <select name="dept" class="form-control" value="{{ student.dept }}">
-                      {% if student.dept == 'Mechanical' %}
-                        <option  value="Mechanical" selected="selected">Mechanical</option>
-                      <option  value="EC">EC</option>
-                      <option  value="Civil">Civil</option>
-                      <option  value="IT">IT</option>
-                      <option  value="EL">EL</option>
-                      <option  value="EE">EE</option>
-                      <option  value="Production">Production</option>
-                      {% elif student.dept == 'EC' %}
-                        <option  value="Mechanical">Mechanical</option>
-                      <option  value="EC" selected="selected">EC</option>
-                      <option  value="Civil">Civil</option>
-                      <option  value="IT">IT</option>
-                      <option  value="EL">EL</option>
-                      <option  value="EE">EE</option>
-                      <option  value="Production">Production</option> 
-                       {% elif student.dept == 'Civil' %}
-                       <option  value="Mechanical">Mechanical</option>
-                      <option  value="EC">EC</option>
-                      <option  value="Civil" selected="selected">Civil</option>
-                      <option  value="IT">IT</option>
-                      <option  value="EL">EL</option>
-                      <option  value="EE">EE</option>
-                      <option  value="Production">Production</option>
-                        {% elif student.dept == 'IT' %}
-                        <option  value="Mechanical">Mechanical</option>
-                      <option  value="EC">EC</option>
-                      <option  value="Civil">Civil</option>
-                      <option  value="IT" selected="selected">IT</option>
-                      <option  value="EL">EL</option>
-                      <option  value="EE">EE</option>
-                      <option  value="Production">Production</option>
-                         {% elif student.dept == 'EL' %}
-                         <option  value="Mechanical">Mechanical</option>
-                      <option  value="EC">EC</option>
-                      <option  value="Civil">Civil</option>
-                      <option  value="IT">IT</option>
-                      <option  value="EL" selected="selected">EL</option>
-                      <option  value="EE">EE</option>
-                      <option  value="Production">Production</option>
-                          {% elif student.dept == 'EE' %}
-                          <option  value="Mechanical">Mechanical</option>
-                      <option  value="EC">EC</option>
-                      <option  value="Civil">Civil</option>
-                      <option  value="IT">IT</option>
-                      <option  value="EL">EL</option>
-                      <option  value="EE" selected="selected">EE</option>
-                      <option  value="Production">Production</option>
-                        {% else %}
-                        <option  value="Mechanical">Mechanical</option>
-                      <option  value="EC">EC</option>
-                      <option  value="Civil">Civil</option>
-                      <option  value="IT">IT</option>
-                      <option  value="EL">EL</option>
-                      <option  value="EE">EE</option>
-                      <option  value="Production" selected="selected">Production</option>
-                      {% endif %}
-                      
-                      
-                    </select>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <br><br>
-             <div class="card-description  mb-4 seperator"></div>
-            <center><span class="detail_tag text-center">College info</span></center>
-            <br>
-            <div class="row">
-              <div class="col-md-6">
-                <div class="form-group row">
-                  <label class="col-sm-3 col-form-label">Enrollment no</label>
-                  <div class="col-sm-8">
-                    <input type="text" name="enrollment" class="form-control" placeholder="Enrollment no" value="{{ student.enrollment }}" />
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="form-group row">
-                  <label class="col-sm-3 col-form-label">ID no</label>
-                  <div class="col-sm-8">
-                    <input type="text"  name="id_no"class="form-control" placeholder="ID no" value="{{ student.id_no }}"/>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            <br><br>
-             <div class="card-description  mb-4 seperator"></div>
-            <center><span class="detail_tag text-center">Address info</span></center>
-            <br>
-            <div class="row">
-              <div class="col-md-6">
-                <div class="form-group row">
-                  <label class="col-sm-3 col-form-label">Permanent Address</label>
-                  <div class="col-sm-8">
-                    <input type="text" name="permanent_address" class="form-control"  value="{{ student.permanent_address }}"/>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="form-group row">
-                  <label class="col-sm-3 col-form-label">State</label>
-                  <div class="col-sm-8">
-                    <input type="text"  name="state" class="form-control"  value="{{ student.state }}" />
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-6">
-                <div class="form-group row">
-                  <label class="col-sm-3 col-form-label">Resident Address</label>
-                  <div class="col-sm-8">
-                    <input type="text" name="resident_address"class="form-control"  value="{{ student.resident_address }}" />
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="form-group row">
-                  <label class="col-sm-3 col-form-label">Postcode</label>
-                  <div class="col-sm-8">
-                    <input type="text" name="pincode" class="form-control"  value="{{ student.pincode }}" />
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-6">
-                <div class="form-group row">
-                  <label class="col-sm-3 col-form-label">City</label>
-                  <div class="col-sm-8">
-                    <input type="text" name="city" class="form-control"   value="{{ student.city }}"/>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="form-group row">
-                  <label class="col-sm-3 col-form-label">Country</label>
-                  <div class="col-sm-8">
-                    <input type="text" name="country" class="form-control" placeholder="ex. India"  value="{{ student.country }}" />
-                  </div>
-                </div>
-              </div>
-              
-            </div>
-            <br><br>
-             <div class="card-description  mb-4 seperator"></div>
-            <center><span class="detail_tag text-center">Educational info</span></center>
-            <br>
-            <div class="row">
-              <div class="col-md-6">
-                <div class="form-group row">
-                  <label class="col-sm-3 col-form-label">SSC School name</label>
-                  <div class="col-sm-8">
-                    <input type="text" name="ssc" class="form-control" placeholder="ex. saint Xaviers"   value="{{ student.ssc }}"/>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-6">
-                 <div class="form-group row">
-            <label class="col-sm-3 col-form-label">SSC Result</label>
-            <input type="file" name="ssc_result" class="file-upload-default">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Email</label>
+                        <div class="col-sm-8">
+                          <input type="text" name="email" class="form-control" placeholder="Email ID"
+                            value="{{ student.email }}" />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Mobile No.</label>
+                        <div class="col-sm-8">
+                          <input type="text" name="mobile" class="form-control" placeholder="Mobile No."
+                            value="{{ student.mobile }}" />
+                        </div>
+                      </div>
+                    </div>
+                    {% comment %} <div class="col-md-6">
+                      <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Role</label>
+                        <div class="col-sm-4">
+                          <div class="form-check">
+                            <label class="form-check-label">
+                              <input type="radio" class="form-check-input" name="role" id="student" value="Student">
+                              Student </label>
+                          </div>
+                        </div>
+                        <div class="col-sm-5">
+                          <div class="form-check">
+                            <label class="form-check-label">
+                              <input type="radio" class="form-check-input" name="role" id="staff" value="Staff"> Staff
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                    </div> {% endcomment %}
+                    <div class="col-md-6">
+                      <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Department</label>
+                        <div class="col-sm-8">
+                          <select name="dept" class="form-control" value="{{ student.dept }}">
+                            {% if student.dept == 'Mechanical' %}
+                            <option value="Mechanical" selected="selected">Mechanical</option>
+                            <option value="EC">EC</option>
+                            <option value="Civil">Civil</option>
+                            <option value="IT">IT</option>
+                            <option value="EL">EL</option>
+                            <option value="EE">EE</option>
+                            <option value="Production">Production</option>
+                            {% elif student.dept == 'EC' %}
+                            <option value="Mechanical">Mechanical</option>
+                            <option value="EC" selected="selected">EC</option>
+                            <option value="Civil">Civil</option>
+                            <option value="IT">IT</option>
+                            <option value="EL">EL</option>
+                            <option value="EE">EE</option>
+                            <option value="Production">Production</option>
+                            {% elif student.dept == 'Civil' %}
+                            <option value="Mechanical">Mechanical</option>
+                            <option value="EC">EC</option>
+                            <option value="Civil" selected="selected">Civil</option>
+                            <option value="IT">IT</option>
+                            <option value="EL">EL</option>
+                            <option value="EE">EE</option>
+                            <option value="Production">Production</option>
+                            {% elif student.dept == 'IT' %}
+                            <option value="Mechanical">Mechanical</option>
+                            <option value="EC">EC</option>
+                            <option value="Civil">Civil</option>
+                            <option value="IT" selected="selected">IT</option>
+                            <option value="EL">EL</option>
+                            <option value="EE">EE</option>
+                            <option value="Production">Production</option>
+                            {% elif student.dept == 'EL' %}
+                            <option value="Mechanical">Mechanical</option>
+                            <option value="EC">EC</option>
+                            <option value="Civil">Civil</option>
+                            <option value="IT">IT</option>
+                            <option value="EL" selected="selected">EL</option>
+                            <option value="EE">EE</option>
+                            <option value="Production">Production</option>
+                            {% elif student.dept == 'EE' %}
+                            <option value="Mechanical">Mechanical</option>
+                            <option value="EC">EC</option>
+                            <option value="Civil">Civil</option>
+                            <option value="IT">IT</option>
+                            <option value="EL">EL</option>
+                            <option value="EE" selected="selected">EE</option>
+                            <option value="Production">Production</option>
+                            {% else %}
+                            <option value="Mechanical">Mechanical</option>
+                            <option value="EC">EC</option>
+                            <option value="Civil">Civil</option>
+                            <option value="IT">IT</option>
+                            <option value="EL">EL</option>
+                            <option value="EE">EE</option>
+                            <option value="Production" selected="selected">Production</option>
+                            {% endif %}
 
-            <div class="input-group col-sm-8">
+
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <br><br>
+                  <div class="card-description  mb-4 seperator"></div>
+                  <center><span class="detail_tag text-center">College info</span></center>
+                  <br>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Enrollment no</label>
+                        <div class="col-sm-8">
+                          <input type="text" name="enrollment" class="form-control" placeholder="Enrollment no"
+                            value="{{ student.enrollment }}" />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">ID no</label>
+                        <div class="col-sm-8">
+                          <input type="text" name="id_no" class="form-control  file-upload-info" placeholder="ID no" aria-disabled="true" disabled
+                            value="{{ request.user.username }}"/>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <br><br>
+                  <div class="card-description  mb-4 seperator"></div>
+                  <center><span class="detail_tag text-center">Address info</span></center>
+                  <br>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Permanent Address</label>
+                        <div class="col-sm-8">
+                          <input type="text" name="permanent_address" class="form-control"
+                            value="{{ student.permanent_address }}" />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">State</label>
+                        <div class="col-sm-8">
+                          <input type="text" name="state" class="form-control" value="{{ student.state }}" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Resident Address</label>
+                        <div class="col-sm-8">
+                          <input type="text" name="resident_address" class="form-control"
+                            value="{{ student.resident_address }}" />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Postcode</label>
+                        <div class="col-sm-8">
+                          <input type="text" name="pincode" class="form-control" value="{{ student.pincode }}" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">City</label>
+                        <div class="col-sm-8">
+                          <input type="text" name="city" class="form-control" value="{{ student.city }}" />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Country</label>
+                        <div class="col-sm-8">
+                          <input type="text" name="country" class="form-control" placeholder="ex. India"
+                            value="{{ student.country }}" />
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                  <br><br>
+                  <div class="card-description  mb-4 seperator"></div>
+                  <center><span class="detail_tag text-center">Educational info</span></center>
+                  <br>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">SSC School name</label>
+                        <div class="col-sm-8">
+                          <input type="text" name="ssc" class="form-control" placeholder="ex. saint Xaviers"
+                            value="{{ student.ssc }}" />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">SSC Result</label>
+                        <input type="file" name="ssc_result" value="{{ student.ssc_result }}" class="file-upload-default">
+
+                        <!-- <div class="input-group col-sm-8">
               <input type="text" class="form-control file-upload-info" placeholder="Upload SSC Result" >
               <span class="input-group-append">
                 <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
               </span>
-            </div>
-                       </div>
-              </div>
-              </div>
-              
-              
-            </div>
-            <div class="row">
-              <div class="col-md-6">
-                <div class="form-group row">
-                  <label class="col-sm-3 col-form-label">HSC School name</label>
-                  <div class="col-sm-8">
-                    <input type="text" name="hsc" class="form-control" placeholder="ex. saint Xaviers"  value="{{ student.hsc }}" />
+            </div> -->
+                        <div class="input-group col-sm-8">
+                          <input type="text" class="form-control file-upload-info" value="{{ student.ssc_result }}"  disabled
+                            placeholder="Upload SSC Result" required>
+                          <span class="input-group-append">
+                            <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
-              <div class="col-md-6">
-                 <div class="form-group row">
-            <label class="col-sm-3 col-form-label">HSC Result</label>
-            <input type="file" name="hsc_result" class="file-upload-default" >
 
-            <div class="input-group col-sm-8">
-              <input type="text" class="form-control file-upload-info" disabled placeholder="Upload HSC Result" >
-              <span class="input-group-append">
-                <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
-              </span>
-            </div>
-                       </div>
-              </div>
-            </div>
-            
-            
-            <!-- skills -->
-           <br><br>
-             <div class="card-description  mb-4 seperator"></div>
-            <center><span class="detail_tag text-center">Skills info</span></center>
-            <br>
-            <div class="row">
-              <div class="col-md-6">
-                <div class="form-group row">
-                  <label class="col-sm-3 col-form-label">Skills</label>
-                  <div class="col-sm-8">
-                  <select  name="skills" class="js-example-basic-multiple" multiple="multiple"  value="{{ student.skills }}" style="width:100%">
-                    <option value="wd">Web Development</option>
-                    <option value="ad">App Development</option>
-                    <option value="cd">Cloud Computing</option>
-                    <option value="excel">Excel</option>
-                    <option value="wp">Wordpress</option>
-                    <option value="react">React</option>
-                    <option value="dj">Django</option>
-                    <option value="bc">Block Chain</option>
-                    <option value="dm">Data Mining</option>
-                    <option value="py">Python</option>
-                    <option value="c">C/C++</option>
-                    <option value="j">Java</option>
-                  </select>
+
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group row">
+                      <label class="col-sm-3 col-form-label">HSC School name</label>
+                      <div class="col-sm-8">
+                        <input type="text" name="hsc" class="form-control" placeholder="ex. saint Xaviers"
+                          value="{{ student.hsc }}" />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group row">
+                      <label class="col-sm-3 col-form-label">HSC Result</label>
+                      <input type="file" name="hsc_result" value="{{ student.hsc_result }}" class="file-upload-default">
+
+                      <div class="input-group col-sm-8">
+                        <input type="text" class="form-control file-upload-info" value="{{ student.ssc_result }}" disabled
+                          placeholder="Upload HSC Result">
+                        <span class="input-group-append">
+                          <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
+                        </span>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div class="col-md-6">
-                <div class="form-group row">
-                  <label class="col-sm-3 col-form-label">Area Of Interest</label>
-                  <div class="col-sm-8">
-                  <select name="interest" class="js-example-basic-multiple" multiple="multiple"  value="{{ student.interest }}" style="width:100%">
-                    <option value="wd">Web Development</option>
-                    <option value="ad">App Development</option>
-                    <option value="cd">Cloud Computing</option>
-                    <option value="excel">Excel</option>
-                    <option value="wp">Wordpress</option>
-                    <option value="react">React</option>
-                    <option value="dj">Django</option>
-                    <option value="bc">Block Chain</option>
-                    <option value="dm">Data Mining</option>
-                    <option value="py">Python</option>
-                    <option value="c">C/C++</option>
-                    <option value="j">Java</option>
-                  </select>
+
+
+                <!-- skills -->
+                <br><br>
+                <div class="card-description  mb-4 seperator"></div>
+                <center><span class="detail_tag text-center">Skills info</span></center>
+                <br>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group row">
+                      <label class="col-sm-3 col-form-label">Skills</label>
+                      <div class="col-sm-8">
+                        <select name="skills" class="js-example-basic-multiple" multiple="multiple"
+                          value="{{ student.skills }}" style="width:100%">
+                          <option value="wd">Web Development</option>
+                          <option value="ad">App Development</option>
+                          <option value="cd">Cloud Computing</option>
+                          <option value="excel">Excel</option>
+                          <option value="wp">Wordpress</option>
+                          <option value="react">React</option>
+                          <option value="dj">Django</option>
+                          <option value="bc">Block Chain</option>
+                          <option value="dm">Data Mining</option>
+                          <option value="py">Python</option>
+                          <option value="c">C/C++</option>
+                          <option value="j">Java</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group row">
+                      <label class="col-sm-3 col-form-label">Area Of Interest</label>
+                      <div class="col-sm-8">
+                        <select name="interest" class="js-example-basic-multiple" multiple="multiple"
+                          value="{{ student.interest }}" style="width:100%">
+                          <option value="wd">Web Development</option>
+                          <option value="ad">App Development</option>
+                          <option value="cd">Cloud Computing</option>
+                          <option value="excel">Excel</option>
+                          <option value="wp">Wordpress</option>
+                          <option value="react">React</option>
+                          <option value="dj">Django</option>
+                          <option value="bc">Block Chain</option>
+                          <option value="dm">Data Mining</option>
+                          <option value="py">Python</option>
+                          <option value="c">C/C++</option>
+                          <option value="j">Java</option>
+                        </select>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-              </div>
-            
-            
-          
-              
-              <center>
-              <div class="row">
-              <div class="col-md-12 mt-4 text-center">
-                
-                <button type="submit" class="btn btn-primary btn-icon-text mr-4">
-                  <i class="mdi mdi-file-check btn-icon-prepend"></i> Submit </button>
-               
-                
-                  <button type="button" class="btn btn-danger btn-icon-text">
-                    <i class="mdi mdi-reload btn-icon-prepend"></i> Reset </button>
+
+
+
+
+                <center>
+                  <div class="row">
+                    <div class="col-md-12 mt-4 text-center">
+
+                      <button type="submit" class="btn btn-primary btn-icon-text mr-4">
+                        <i class="mdi mdi-file-check btn-icon-prepend"></i> Submit </button>
+
+
+                      <!-- <button type="button" class="btn btn-danger btn-icon-text">
+                        <i class="mdi mdi-reload btn-icon-prepend"></i> Reset </button> -->
+                    </div>
+
                   </div>
-            
+
+
+
+              </div>
             </div>
-              
-            
-          
-        </div>
+          </div>
+        </form>
+
+        <!-- partial:partials/_footer.html -->
+
+        <!-- partial -->
       </div>
+      <!-- main-panel ends -->
     </div>
-    </form>
-    
-  <!-- partial:partials/_footer.html -->
-  
-  <!-- partial -->
-</div>
-<!-- main-panel ends -->
-</div>
-<!-- page-body-wrapper ends -->
-</div>
+    <!-- page-body-wrapper ends -->
+  </div>
 </div>
 <!-- container-scroller -->
 <!-- </div>
