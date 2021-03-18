@@ -106,13 +106,24 @@ def FacultyProfileView(request):
 
 def FacultyAddEventView(request):
     if request.user.is_authenticated and request.user.is_faculty:
-        return render(request,"faculty/assign.html")
+        if request.method == "POST" and 'poster' in request.FILES:
+            event_name = request.POST.get('event')
+            instructions = request.POST.get('instruction')
+            url = request.POST.get('url')
+            file = request.FILES['poster']
+            form = Events(event_name=event_name,instructions=instructions,url=url,file=file)
+           
+            form.save()
+            messages.success(request,"Event Uploaded")
+        return redirect('/faculty/events')
+        # return render(request,"faculty/assign.html")
+        
     else:
         return redirect('faculty/login')
 
 def FacultyEventView(request):
     if request.user.is_authenticated and request.user.is_faculty:
-        return render(request,"faculty/assignment_view.html")
+        return render(request,"faculty/assign.html")
     else:
         return redirect('faculty/login')
 

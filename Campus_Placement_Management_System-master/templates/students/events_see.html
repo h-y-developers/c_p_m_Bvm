@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% block content %}
+    
+{% load static %}
+    <div class="container-scroller">
+      <!-- partial:partials/_sidebar.html -->
+      {% include 'navbar.html' %}
+      <!-- partial -->
+      <div class="container-fluid page-body-wrapper">
+        <!-- partial:partials/_navbar.html -->
+       
+        <!-- partial -->
+        <div class="main-panel">
+          <div class="content-wrapper">
+         <form  action="/students/events" >   
+         {% comment %} {% csrf_token %} {% endcomment %}
+            <div class="row">
+<!--             
+                 -->
+             <div class="container my-4">
+                    {% comment %} {% for message in messages %}
+                <div class="form-group mt-4 mb-4 {{ message.tags }} alert-dismissible fade show" role="alert">
+                  {{ message }}
+                  
+                </div>
+                {% endfor %} {% endcomment %}
+                    {% comment %} <div class="d-flex flex-row justify-content-between mb-3">
+                      <h4 class="card-title mt-2 mb-1">Events</h4>
+                      <a href="/students/add_achievement" style="border-radius:100% ; height: 4rem;  width: 4rem; position: fixed; bottom: 30px; right: 30px; font-size: 2rem; display: inline-block; padding-left: 15px; line-height: 48px; z-index: 99;" class="btn btn-primary"><i class="mdi mdi-plus" style=""></i></a>
+                      
+                    </div> {% endcomment %}
+                  
+             </div>    
+
+             {% for event in events %}
+                <div class="col-md-3 col-xl-4 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">{{ event.event }}</h4>
+                    
+                      <div class="achieve_item">
+                        <img src= "/media/{{ event.file }}" style="height: 150px;" alt="">
+                      </div>
+                      <!-- <div class="item">
+                        <img src="assets/images/dashboard/Img_5.jpg" alt="">
+                      </div>
+                      <div class="item">
+                        <img src="assets/images/dashboard/img_6.jpg" alt="">
+                      </div> -->
+                    
+                    <div class="d-flex py-3">
+                      <div class="preview-list w-100">
+                        <div class="preview-item p-0">
+                          <!-- <div class="preview-thumbnail">
+                            <img src="assets/images/faces/face12.jpg" class="rounded-circle" alt="">
+                          </div> -->
+                          <div class="preview-item-content d-flex flex-grow">
+                            <div class="flex-grow">
+                              <div class="d-flex d-md-block d-xl-flex justify-content-between">
+                                <p class="preview-subject">{{ event.instruction }}</p>
+                                 <a class="btn btn-primary btn-lg btn-block mt-4" href="{{ event.url }}">
+                        <i class="mdi mdi-account"></i> Go to Form </a>
+                              </div>
+                            
+                            
+                              
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+              </div>
+
+             {% endfor %}
+                  
+              
+               
+              
+          <!-- partial -->
+        </div>
+        <!-- main-panel ends -->
+      </div>
+      <!-- page-body-wrapper ends -->
+    </div>
+  </div>
+
+
+    {% endblock content %}

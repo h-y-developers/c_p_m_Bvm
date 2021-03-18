@@ -8,12 +8,12 @@ from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.generic import CreateView, ListView, UpdateView,View
 from django.http import HttpResponse
-from .resources import studentResource
+from .resources import studentResource,studentmarksResource
 from tablib import Dataset
 
 
 from ..decorators import admin_required
-from ..models import College, User, Student
+from ..models import College, User, Student,Marks
 
 
 # @method_decorator([login_required, admin_required], name='dispatch')
@@ -200,6 +200,59 @@ def AdminStudentView(request):
     else:
         return redirect('/c_admin/login')
 
+
+FILE_FORMAT = ['xlsx','xls']
+# @method_decorator([login_required, admin_required], name='dispatch')
+def AdminStudentMarksView(request):
+    if request.user.is_authenticated and request.user.is_admin:
+        if request.method == "POST" and 'xl_data' in request.FILES:
+
+            student_marks_resource = studentmarksResource()
+            dataset = Dataset()
+            new_marks = request.FILES['xl_data']
+            # doc = new_persons
+            file_type = new_marks.name
+            file_type = file_type.lower()
+            if not file_type.endswith(".xlsx"):
+                messages.error(request,"Please upload xlsx or xls file")
+                return redirect('/c_admin/add_faculty')
+            else:
+                try:
+                    imported_data = dataset.load(new_marks.read(),format='xlsx')
+                    print(imported_data)
+                    for data in imported_data:
+                        # print(data[0])
+                        user = Marks(
+                            data[0],
+                            username = data[1],
+                            first_year = data[2],
+                            second_year = data[3],
+                            third_year = data[4],
+                            fourth_year = data[5],
+                            # is_student = True
+                           )
+                        
+                        user.save()
+
+                    messages.success(request,"File Uploaded")
+                    return redirect("/c_admin/add_faculty")  
+                except:
+                    messages.error(request,"Some Entry is repeated")
+                    return redirect("/c_admin/add_faculty")    
+                 
+        else:
+            return render(request,"c_admin/faculty_id.html")
+
+
+                    
+            # result = student_resource.import_data(dataset, dry_run=True)  # Test the data import
+
+            # if not result.has_errors():
+            #    student_resource.import_data(dataset, dry_run=False)  # Actually import now
+
+        
+    else:
+        return redirect('/c_admin/login')
 
 
 def export(request):

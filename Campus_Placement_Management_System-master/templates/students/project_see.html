@@ -14,7 +14,7 @@
         <!-- partial -->
         <div class="main-panel">
           <div class="content-wrapper">
-         <form  action="/students/add_projects" >   
+         <form  action="/students/" >   
          {% comment %} {% csrf_token %} {% endcomment %}
             <div class="row">
 <!--             
@@ -22,8 +22,8 @@
              <div class="container my-4">
                 
                     <div class="d-flex flex-row justify-content-between mb-3">
-                      <h4 class="card-title mt-2 mb-1">Projects</h4>
-                      <button type="submit" class="btn btn-primary btn-fw" >Add Proejcts</button>
+                      <h4 class="card-title mt-2 mb-1">The List of Projects</h4>
+                      {% comment %} <button type="submit" class="btn btn-primary btn-fw" >Add Proejcts</button> {% endcomment %}
                       {% comment %} <select class="text-muted typeahead col-4 mb-1">
                           <option class="text-muted mb-1">All</option>
                           <option class="text-muted mb-1">Developing</option>

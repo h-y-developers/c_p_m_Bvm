@@ -34,9 +34,9 @@ from django.conf.urls import url
 
 # from .views import college,c_admin,faculty,student
 
-from .views.c_admin import (AdminForgetPassView,AdminLogoutView,AdminLoginView,AdminStudentView, AdminFacultyView, AdminAddAdminView,AdminCompanyView)
+from .views.c_admin import (AdminForgetPassView,AdminLogoutView,AdminLoginView,AdminStudentView, AdminFacultyView, AdminAddAdminView,AdminCompanyView,AdminStudentMarksView)
 
-from .views.student import (shome,StudentCertificateView,StudentForgetPassView,StudentLogoutView,StudentLoginView,StudentProfileView, StudentDashboardView,StudentLoginView,StudentAchievementView,StudentExamView,StudentProjectView,StudentEventView,Studentproject,studentsProfilesee)
+from .views.student import (shome,StudentCertificateView,StudentForgetPassView,StudentLogoutView,StudentLoginView,StudentProfileView, StudentDashboardView,StudentLoginView,StudentAchievementView,StudentExamView,StudentProjectView,StudentEventView,Studentproject,studentsProfilesee,StudentProjectsee)
 
 from .views.faculty import (FacultyForgetPassView,FacultyLogoutView,FacultyLoginView,FacultyDashboardView,FacultyProfileView,FacultyEventView,FacultyAddEventView)
 
@@ -108,9 +108,11 @@ urlpatterns = [
     # path('students/assignments', StudentAssignmentView, name='student_assignments'),
     path('students/add_projects', StudentProjectView, name='student_projects'),
     path('students/projects', Studentproject, name='student_add_projects'),
+    path('students/project_see', StudentProjectsee, name="student_project_see"),
     # path('students/timetable', StudentTimetableView, name='student_timetable'),
     path('students/achievements', StudentAchievementView, name='student_achievements'),
     
+    path('students/events', StudentEventView, name='student_Events'),
     path('students/certi', StudentCertificateView, name='student_achievements'),
     path('students/logout', StudentLogoutView, name='student_logout'),
     path('students/forgetPassword', StudentForgetPassView, name='student_forget'),
@@ -130,7 +132,7 @@ urlpatterns = [
     path('c_admin/', AdminAddAdminView, name='admin_dashboard'),
     path('c_admin/index', AdminAddAdminView, name='admin_add_admin'),
     path('c_admin/add_company', AdminCompanyView, name='admin_add_company'),
-    path('c_admin/add_faculty', AdminFacultyView, name='admin_add_faculty'),
+    path('c_admin/add_faculty', AdminStudentMarksView, name='admin_add_faculty'),
     path('c_admin/add_student', AdminStudentView, name='admin_add_student'),
     path('c_admin/login',AdminLoginView,name='admin_login'),
     path('c_admin/logout',AdminLogoutView,name='admin_logout'),

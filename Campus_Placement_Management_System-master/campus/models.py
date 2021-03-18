@@ -29,16 +29,22 @@ class User(AbstractUser):
     slug = models.SlugField(unique=True, default=uuid.uuid1)
     college_name = models.CharField(max_length =100, default="BVM")
 
-# class Admin(models.Model):
-#     username = models.CharField(unique=True,primary_key=True,max_length=20)
-#     # name= models.CharField(max_length = 100)
-#     # mobile_no = models.CharField(max_length=12)
-#     # email_id = models.CharField(max_length = 100)
-#     password = models.CharField(max_length=100)
-#     # college_name = models.CharField(max_length =100, default="BVM")
+class Marks(models.Model):
+    id_no = models.CharField(unique=True,max_length=20,null=True)
+    username = models.CharField(unique=True,max_length=100)
+    first_year = models.CharField(blank=True,max_length=20)
+    second_year = models.CharField(blank=True,max_length=20)
+    third_year = models.CharField(blank=True,max_length=20)
+    fourth_year = models.CharField(blank=True,max_length=20)
 
-#     # class Meta:
-#     #     db_table = "admin"
+    # name= models.CharField(max_length = 100)
+    # mobile_no = models.CharField(max_length=12)
+    # email_id = models.CharField(max_length = 100)
+    # password = models.CharField(max_length=100)
+    # college_name = models.CharField(max_length =100, default="BVM")
+
+    # class Meta:
+    #     db_table = "admin"
 
 
 
@@ -317,12 +323,15 @@ class Timetable(models.Model):
     college_name = models.CharField(max_length =100, default="BVM")
 
 class Events(models.Model):
-    event_id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
+    # event_id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
+    # faculty_name = models.CharField(max_length=200)
     event_name = models.CharField(max_length=200)
-    facultyy_name = models.CharField(max_length=200)
-    depart_name = models.CharField(max_length=200)
-    college_name = models.CharField(max_length =100, default="BVM")
-    event_date = models.DateField()
+    instructions = models.CharField(max_length=1000,blank=True)
+    url = models.URLField(max_length=100,blank=True)
+    file = models.FileField(upload_to='events/' ,blank=True)
+    # depart_name = models.CharField(max_length=200)
+    # college_name = models.CharField(max_length =100, default="BVM")
+    # event_date = models.DateField()
 
 
 

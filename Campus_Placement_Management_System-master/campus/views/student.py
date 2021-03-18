@@ -155,9 +155,15 @@ def StudentDashboardView(request):
     else:
         return redirect('students/login')
 
+
+
 def StudentEventView(request):
     if request.user.is_authenticated and request.user.is_student:
-        return render(request,"students/assignments.html")
+        userr = Events.objects.all()
+        context = {
+            'events':userr
+        }
+        return render(request,"students/events_see.html",context)
     else:
         return redirect('students/login')
 
@@ -206,6 +212,16 @@ def Studentproject(request):
         return redirect('students/login')    
 
 
+def StudentProjectsee(request):
+    if request.user.is_authenticated and request.user.is_student:
+        project = Project.objects.all()
+        context = {
+            'projects':project
+        }
+        return render(request,"students/project_see.html",context)
+    else:
+        return redirect('students/login')
+
 def StudentProjectView(request):
     if request.user.is_authenticated and request.user.is_student:
         if request.method == "POST":
@@ -222,6 +238,7 @@ def StudentProjectView(request):
 
 def studentsProfilesee(request):
     if request.user.is_authenticated and request.user.is_student:
+
         return render(request,"students/profile.html")
     else:
         return redirect('/login')
