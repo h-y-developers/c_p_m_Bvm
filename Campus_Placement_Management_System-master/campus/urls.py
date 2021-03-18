@@ -37,10 +37,14 @@ from django.conf.urls import url
 from .views.c_admin import (AdminForgetPassView,AdminLogoutView,AdminLoginView,AdminStudentView, AdminFacultyView, AdminAddAdminView,AdminCompanyView,AdminStudentMarksView)
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 from .views.student import (shome,StudentCertificateView,StudentForgetPassView,StudentLogoutView,StudentLoginView,StudentProfileView, StudentDashboardView,StudentLoginView,StudentAchievementView,StudentExamView,StudentProjectView,StudentEventView,Studentproject,studentsProfilesee,StudentProjectsee)
 =======
 from .views.student import (shome,StudentCertificateView,StudentCertificateadd,StudentForgetPassView,StudentLogoutView,StudentLoginView,StudentProfileView, StudentProfileadd,StudentDashboardView,StudentLoginView,StudentAchievementView,StudentExamView,StudentProjectView,StudentEventView,Studentproject,StudentProjectadd)
 >>>>>>> c60cc55b994a3118df931bc9e041e26b44f781ff
+=======
+from .views.student import (shome,StudentProfileUpdateView,StudentCertificateView,StudentForgetPassView,StudentLogoutView,StudentLoginView,StudentProfileView, StudentDashboardView,StudentLoginView,StudentAchievementView,StudentExamView,StudentProjectView,StudentEventView,Studentproject,studentsProfilesee)
+>>>>>>> d87d7eb1d0e87e8cfe36b0fb21b2118e5f3df3af
 
 from .views.faculty import (FacultyForgetPassView,FacultyLogoutView,FacultyLoginView,FacultyDashboardView,FacultyProfileView,FacultyEventView,FacultyAddEventView)
 
@@ -104,7 +108,8 @@ urlpatterns = [
     path('students/login',StudentLoginView,name="student_login"),
 <<<<<<< HEAD
     path('students/profile/<str:slug>', StudentProfileView, name="student_profile"),
-    path('students/profile_see', studentsProfilesee, name="student_profile_see"),
+    path('students/profile/<str:slug>/update', StudentProfileUpdateView, name="student_update_profile"),
+    # path('students/profile_see', studentsProfilesee, name="student_profile_see"),
     path('students/', StudentDashboardView, name='student_dashboard'),
     path('students/index', StudentDashboardView, name='student_dashboard'),
     path('students/exams', StudentExamView, name='student_exams'),
