@@ -169,18 +169,41 @@ class Student(models.Model):
 
 
 
-class Achievement(models.Model):
-
-    achieve_id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
-    student_name = models.CharField(max_length=100)
-    certificate_name= models.CharField(max_length = 100,blank=True)
-    field_type = models.CharField(max_length=100)
-    issuer_name = models.CharField(max_length = 100,blank=True)
-    certificate_img = models.FileField(null=True,upload_to='achievements/')
-    college_name = models.CharField(max_length =100, default="BVM")
+# class Achievement(models.Model):
+#     achieve_id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
+#     student_name = models.CharField(max_length=100)
+#     certificate_name= models.CharField(max_length = 100,blank=True)
+#     field_type = models.CharField(max_length=100)
+#     issuer_name = models.CharField(max_length = 100,blank=True)
+#     certificate_img = models.FileField(upload_to='achievements/')
+#     college_name = models.CharField(max_length =100, default="BVM")
 
     # class Meta:
     #     db_table = "achievements"
+class Achievement(models.Model):
+<<<<<<< HEAD
+
+    achieve_id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
+    student_name = models.CharField(max_length=100)
+=======
+    
+>>>>>>> c60cc55b994a3118df931bc9e041e26b44f781ff
+    certificate_name= models.CharField(max_length = 100,blank=True)
+    issuer_name = models.CharField(max_length = 100,blank=True)
+    certificate_img = models.FileField(null=True,upload_to='achievements/')
+<<<<<<< HEAD
+    college_name = models.CharField(max_length =100, default="BVM")
+=======
+>>>>>>> c60cc55b994a3118df931bc9e041e26b44f781ff
+
+    # class Meta:
+    #     db_table = "achievements"
+
+class Project(models.Model):
+    
+    project_name= models.CharField(max_length = 100,blank=True)
+    description = models.CharField(max_length = 500,blank=True)
+    url = models.URLField(max_length=100,blank=True)
 
 
 
@@ -277,6 +300,7 @@ class Faculties(models.Model):
 
 
 
+<<<<<<< HEAD
 class Project(models.Model):
     project_id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
     # subject_id = models.CharField(max_length=100)
@@ -286,6 +310,17 @@ class Project(models.Model):
     url = models.URLField(max_length=100,blank=True)
     rating_star = models.CharField(max_length =3,default="0")
     college_name = models.CharField(max_length =100, default="BVM")
+=======
+# class Project(models.Model):
+#     project_id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
+#     # subject_id = models.CharField(max_length=100)
+#     student_id = models.CharField(max_length = 100)
+#     project_name= models.CharField(max_length = 100,blank=True)
+#     description = models.CharField(max_length = 500,blank=True)
+#     url = models.URLField(max_length=100,blank=True)
+#     rating_star = models.CharField(max_length =3)
+#     college_name = models.CharField(max_length =100, default="BVM")
+>>>>>>> c60cc55b994a3118df931bc9e041e26b44f781ff
 
     # class Meta:
     #     db_table = "projects"

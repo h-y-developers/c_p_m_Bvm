@@ -305,7 +305,7 @@
       <div class="card">
         <div class="card-body">
           <h4 class="card-title">Faculty Details </h4>
-          <form  method="POST" action="/faculty/profile"class="form-sample">
+          <form  method="POST" action="/faculty/profile"class="form-sample" enctype="multipart/form-data">
           {% csrf_token %}
             <br>
             <div class="card-description mt-6 mb-4 seperator"></div>
@@ -497,25 +497,21 @@
                   </div>
                 </div>
               </div>
-              <div class="col-md-6">
+               <div class="col-md-6">
                 <div class="form-group row">
-                  <label class="col-sm-3 col-form-label">File upload</label>
-                    <input type="file" name="B_E_college_result" class="file-upload">
-                  <div class="col-sm-8">
-                        {% comment %} <div class="input-group col-xs-12">
-                          <input type="text" class="form-control file-upload-info" disabled placeholder="Upload Degree">
-                          <span class="input-group-append">
-                            <button class="btn btn-success btn-icon-text">
-                              <i class="mdi mdi-upload btn-icon-prepend"></i> Upload </button>
-                           
-                          </span>
-                        </div> {% endcomment %}
-                  </div>
-                </div>
-              </div>
+              <label></label>
               
-              
+              <input type="file" name="B_E_college_result" class="file-upload-default">
+              <div class="input-group col-xs-12">
+              <input type="text" class="form-control file-upload-info" disabled placeholder="Upload B_E Result">
+              <span class="input-group-append">
+                <button class="file-upload-browse btn btn-success" type="button">Upload</button>
+              </span>
             </div>
+          </div>
+              
+               </div>
+        </div>
             <div class="row">
               <div class="col-md-6">
                 <div class="form-group row">
@@ -527,21 +523,20 @@
               </div>
               <div class="col-md-6">
                 <div class="form-group row">
-                  <label class="col-sm-3 col-form-label">File upload</label>
-                    <input type="file" name="M_E_college_result" class="file-upload">
-                  {% comment %} <div class="col-sm-8"> {% endcomment %}
-                        {% comment %} <div class="input-group col-xs-12">
-                          <input type="text" class="form-control file-upload-info" disabled placeholder="Upload Degree">
-                           <span class="input-group-append">
-                            <button type="file" class="btn btn-success btn-icon-text">
-                              <i class="mdi mdi-upload btn-icon-prepend"></i> Upload </button>
-                           
-                          </span> 
-                        </div> {% endcomment %}
-                  {% comment %} </div> {% endcomment %}
-                </div>
-              </div>
+              <label></label>
+              
+              <input type="file" name="M_E_college_result" class="file-upload-default">
+              <div class="input-group col-xs-12">
+              <input type="text" class="form-control file-upload-info" disabled placeholder="Upload M_E Result">
+              <span class="input-group-append">
+                <button class="file-upload-browse btn btn-success" type="button">Upload</button>
+              </span>
             </div>
+          </div>
+                 
+           </div>
+              </div>
+            
             <div class="row">
               <div class="col-md-12 mt-4 text-center">
                 

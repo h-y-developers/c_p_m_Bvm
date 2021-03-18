@@ -58,7 +58,7 @@ def FacultyDashboardView(request):
 
 def FacultyProfileView(request):
     if request.user.is_authenticated and request.user.is_faculty:
-        if request.method == "POST":
+        if request.method == "POST" or 'B_E_college_result' in request.FILES or 'M_E_college_result' in request.FILES:
             fname = request.POST.get('fname')
             lname = request.POST.get('lname')
             gender = request.POST.get('gender')
@@ -77,9 +77,9 @@ def FacultyProfileView(request):
             city = request.POST.get('city')
             country = request.POST.get('country')
             B_E_college_name =request.POST.get('B_E_college_name')
-            B_E_college_result= request.POST.get('B_E_college_result')
+            B_E_college_result= request.FILES['B_E_college_result']
             M_E_college_name =request.POST.get('M_E_college_name')
-            M_E_college_result= request.POST.get('M_E_college_result')
+            M_E_college_result= request.FILES['M_E_college_result']
             
 
             
