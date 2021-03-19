@@ -36,7 +36,7 @@ from django.conf.urls import url
 
 from .views.c_admin import (AdminForgetPassView,AdminLogoutView,AdminLoginView,AdminStudentView, AdminFacultyView, AdminAddAdminView,AdminCompanyView)
 
-from .views.student import (shome,StudentCertificateView,StudentForgetPassView,StudentLogoutView,StudentLoginView,StudentProfileView, StudentDashboardView,StudentLoginView,StudentAchievementView,StudentExamView,StudentProjectView,StudentEventView,Studentproject,studentsProfilesee)
+from .views.student import (StudentProfileUpdateView,StudentCertificateView,StudentForgetPassView,StudentLogoutView,StudentLoginView,StudentProfileView, StudentDashboardView,StudentLoginView,StudentAchievementView,StudentExamView,StudentProjectView,StudentEventView,Studentproject,studentsProfilesee)
 
 from .views.faculty import (FacultyForgetPassView,FacultyLogoutView,FacultyLoginView,FacultyDashboardView,FacultyProfileView,FacultyEventView,FacultyAddEventView)
 
@@ -99,7 +99,9 @@ urlpatterns = [
     
     path('students/login',StudentLoginView,name="student_login"),
     path('students/profile/<str:slug>', StudentProfileView, name="student_profile"),
-    path('students/profile_see', studentsProfilesee, name="student_profile_see"),
+    # path('students/profile/<str:slug>/add_skill', insertSkill, name="add_skill"),
+    path('students/profile/<str:slug>/update', StudentProfileUpdateView, name="student_update_profile"),
+    # path('students/profile_see', studentsProfilesee, name="student_profile_see"),
     path('students/', StudentDashboardView, name='student_dashboard'),
     path('students/index', StudentDashboardView, name='student_dashboard'),
     path('students/exams', StudentExamView, name='student_exams'),

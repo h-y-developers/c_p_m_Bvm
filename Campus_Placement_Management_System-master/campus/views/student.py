@@ -9,6 +9,9 @@ from django.shortcuts import get_object_or_404, redirect, render, HttpResponseRe
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.generic import CreateView, ListView, UpdateView,View
+# from ..serialize import StudentSerialize
+# from rest_framework.response import Response
+# from rest_framework.decorators import api_view
 
 
 # from ..decorators import students_required
@@ -28,6 +31,20 @@ from ..forms import DocumentForm
 #     # def form_valid(self, form):
 #     #     messages.success(self.request, 'Interests updated with success!')
 #     #     return super().form_valid(form)
+
+
+# @api_view(["POST"])
+# def insertSkill(request):
+#     if request.method == "POST":
+#         studentSerializeobj = StudentSerialize(data = request.data)
+#         if studentSerializeobj.is_valid():
+#             studentSerializeobj.save()
+#             return Response(studentSerializeobj.data)
+
+
+
+
+
 
 
 # # def studentsDashboardView(request):
@@ -171,7 +188,6 @@ def StudentCertificateView(request):
             form = Achievement(student_name= request.user.username,certificate_name=certificate_name,issuer_name=issuer_name,field_type = field,certificate_img=certificate_img)
             # form = Achievements(request.POST,request.FILES)
             form.save()
-            messages.success(request,"Uploaded")
             return redirect('/students/achievements')
 
         
@@ -226,57 +242,146 @@ def studentsProfilesee(request):
     else:
         return redirect('/login')
 
+def decode_skill(skills):
+    """
+    Decode pizza pie toppings
+    """
+    skill = dict(Student.boolschoice)
+    decoded = [skill[t] for t in skills]
+    decoded.sort()
+    return ', '.join(decoded)
+
+
+def StudentProfileUpdateView(request,slug):
+    if request.method == "POST" or ('ssc_result' in request.FILES or 'hsc_result' in request.FILES):
+        # skills = str(request.POST.get('skill_input'))
+        # skill = skills.split()
+        # print(skill)
+        fname = request.POST.get('fname')
+        lname = request.POST.get('lname')
+        gender = request.POST.get('gender')
+        dob = request.POST.get('dob')
+        email = request.POST.get('email')
+        mobile = request.POST.get('mobile')
+            # role = request.POST.get('role')
+        dept = request.POST.get('dept')
+        enrollment = request.POST.get('enrollment')
+        id_no = request.POST.get('id_no')
+        permanent_address = request.POST.get('permanent_address')
+        state = request.POST.get('state')
+        resident_address = request.POST.get('resident_address')
+        pincode = request.POST.get('pincode')
+        city = request.POST.get('city')
+        country = request.POST.get('country')
+        ssc = request.POST.get('ssc')
+        ssc_res = request.FILES['ssc_result']
+        hsc = request.POST.get('hsc')
+        hsc_res = request.FILES['hsc_result']
+        skill = request.POST.get('skills')
+        interest = request.POST.get('interest')
+            
+        try:
+            
+            userr = Student.objects.get(Id_number = request.user.username)
+            userr.fname = fname
+            userr.lname = lname
+            userr.gender = gender
+            userr.dob = dob
+            userr.email = email
+            userr.mobile = mobile
+            userr.dept = dept
+            userr.enrollment = enrollment
+            userr.id_no = id_no
+            userr.project = permanent_address
+            userr.state = state
+            userr.resident_address = resident_address
+            userr.pincode = pincode
+            userr.city = city
+            userr.country = country
+            userr.ssc = ssc
+            userr.ssc_result = ssc_res
+            userr.hsc = hsc
+            userr.hsc_result = hsc_res
+            # userr.skills.set(skill)
+            # userr.interest = interest
+            # for word in skill:
+            #     userr.skills.add(word)
+            userr.save()
+            messages.success(request,"Updated")
+            url = '/students/profile/'+str(slug)
+            return redirect(url)
+
+            
+        except:
+            form = Student.objects.create(Id_number= request.user.username,slug=slug,fname=fname,lname=lname,gender=gender,dob=dob,email=email,
+            mobile=mobile,dept=dept,enrollment=enrollment,id_no=id_no,
+            permanent_address=permanent_address,state=state,resident_address=resident_address,
+            pincode=pincode,city=city,country=country,ssc=ssc,ssc_result=ssc_res,
+            hsc=hsc,hsc_result=hsc_res)
+            # for word in skill:
+            #     form.skills.add(word)
+            # form.skills.set(skill)
+            form.save()
+            messages.success(request,"Inserted")
+            url = '/students/profile/'+str(slug)
+            return redirect(url)
+
+
+        
+    else:
+        url = '/students/profile/'+str(slug)
+        return redirect(url)
+        
 
 
 def StudentProfileView(request,slug):
     if request.user.is_authenticated and request.user.is_student:
-        if request.method == "POST" and 'ssc_result' in request.FILES or 'hsc_result' in request.FILES:
+        # if request.method == "POST" and 'ssc_result' in request.FILES or 'hsc_result' in request.FILES:
 
-            fname = request.POST.get('fname')
-            lname = request.POST.get('lname')
-            gender = request.POST.get('gender')
-            dob = request.POST.get('dob')
-            email = request.POST.get('email')
-            mobile = request.POST.get('mobile')
-            # role = request.POST.get('role')
-            dept = request.POST.get('dept')
-            enrollment = request.POST.get('enrollment')
-            id_no = request.POST.get('id_no')
-            permanent_address = request.POST.get('permanent_address')
-            state = request.POST.get('state')
-            resident_address = request.POST.get('resident_address')
-            pincode = request.POST.get('pincode')
-            city = request.POST.get('city')
-            country = request.POST.get('country')
-            ssc = request.POST.get('ssc')
-            ssc_res = request.FILES['ssc_result']
-            hsc = request.POST.get('hsc')
-            hsc_res = request.FILES['hsc_result']
-            skills = request.POST.get('skills')
-            interest = request.POST.get('interest')
+        #     fname = request.POST.get('fname')
+        #     lname = request.POST.get('lname')
+        #     gender = request.POST.get('gender')
+        #     dob = request.POST.get('dob')
+        #     email = request.POST.get('email')
+        #     mobile = request.POST.get('mobile')
+        #     # role = request.POST.get('role')
+        #     dept = request.POST.get('dept')
+        #     enrollment = request.POST.get('enrollment')
+        #     id_no = request.POST.get('id_no')
+        #     permanent_address = request.POST.get('permanent_address')
+        #     state = request.POST.get('state')
+        #     resident_address = request.POST.get('resident_address')
+        #     pincode = request.POST.get('pincode')
+        #     city = request.POST.get('city')
+        #     country = request.POST.get('country')
+        #     ssc = request.POST.get('ssc')
+        #     ssc_res = request.FILES['ssc_result']
+        #     hsc = request.POST.get('hsc')
+        #     hsc_res = request.FILES['hsc_result']
+        #     skills = request.POST.get('skills')
+        #     interest = request.POST.get('interest')
             
 
-            userr = User.objects.get(slug = slug)
+        #     userr = User.objects.get(slug = slug)
 
-            form = Student(Id_number= userr.username,slug = slug,fname=fname,lname=lname,gender=gender,dob=dob,email=email,
-            mobile=mobile,dept=dept,enrollment=enrollment,id_no=id_no,
-            permanent_address=permanent_address,state=state,resident_address=resident_address,
-            pincode=pincode,city=city,country=country,ssc=ssc,ssc_result=ssc_res,
-            hsc=hsc,hsc_result=hsc_res,skills=skills,interest=interest)
-            form.save()
-            url = '/students/profile/'+str(slug)
-            return redirect(url)
+        #     form = Student(Id_number= userr.username,slug = slug,fname=fname,lname=lname,gender=gender,dob=dob,email=email,
+        #     mobile=mobile,dept=dept,enrollment=enrollment,id_no=id_no,
+        #     permanent_address=permanent_address,state=state,resident_address=resident_address,
+        #     pincode=pincode,city=city,country=country,ssc=ssc,ssc_result=ssc_res,
+        #     hsc=hsc,hsc_result=hsc_res,skills=skills,interest=interest)
+        #     form.save()
+        #     url = '/students/profile/'+str(slug)
+        #     return redirect(url)
 
-        else:
-            usee = request.user.username
-            try:
-                userr = Student.objects.get(slug=slug)
-            except:
-                userr = None
-            context={
+        # else:
+        try:
+            userr = Student.objects.get(slug=slug)
+        except:
+            userr = None
+        context={
                 'student' : userr
-            }
-            return render(request,"students/profile.html",context)
+        }
+        return render(request,"students/profile.html",context)
 
         
         

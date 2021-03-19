@@ -3,6 +3,7 @@ from django.db import models
 from django.utils.html import escape, mark_safe
 from datetime import datetime
 import uuid
+import os
 from multiselectfield import MultiSelectField
 from rest_framework import fields, serializers
 # Create your models here.
@@ -88,14 +89,14 @@ class User(AbstractUser):
 #         return self.student_id
     # class Meta:
     #     db_table = "students"
-class Skills(models.Model):
-    boolschoice = (
-        ("wd","Web Development"),("ad","App Development"),("cd","Cloud Computing"),
-        ("excel","Excel"),("wp","Wordpress"),("react","React"),("dj","Django"),
-        ("bc","Block Chain"),("dm","Data Mining"),("py","Python"),("c","C/C++"),
-        ("j","Java")
-    )
-    a_skills = models.CharField(max_length=100,choices=boolschoice,null=True)
+# class Skills(models.Model):
+#     boolschoice = (
+#         ("wd","Web Development"),("ad","App Development"),("cd","Cloud Computing"),
+#         ("excel","Excel"),("wp","Wordpress"),("react","React"),("dj","Django"),
+#         ("bc","Block Chain"),("dm","Data Mining"),("py","Python"),("c","C/C++"),
+#         ("j","Java")
+#     )
+#     a_skills = models.CharField(max_length=100,choices=boolschoice,null=True)
 
 
 
@@ -107,6 +108,13 @@ class Interests(models.Model):
         ("j","Java")
     )
     a_interest = models.CharField(max_length=100,choices=boolschoice,null=True)
+
+
+class Skills(models.Model):
+    skill = models.CharField(max_length = 100,default="")
+
+    def __str__(self):
+        return self.skill
 
 
 class Student(models.Model):
@@ -123,9 +131,9 @@ class Student(models.Model):
     )
 
     boolschoice = (
-        ("wd","Web Development"),("ad","App Development"),("cd","Cloud Computing"),
+        ("wd","Web_Development"),("ad","App_Development"),("cd","Cloud_Computing"),
         ("excel","Excel"),("wp","Wordpress"),("react","React"),("dj","Django"),
-        ("bc","Block Chain"),("dm","Data Mining"),("py","Python"),("c","C/C++"),
+        ("bc","Block_Chain"),("dm","Data_Mining"),("py","Python"),("c","C/C++"),
         ("j","Java")
     )
     boolichoice = (
@@ -134,32 +142,39 @@ class Student(models.Model):
         ("bc","Block Chain"),("dm","Data Mining"),("py","Python"),("c","C/C++"),
         ("j","Java")
     )
-    Id_number = models.CharField(max_length=100,unique=True,default="")
-    slug = models.SlugField(unique=True,default="")
-    fname = models.CharField(max_length=100,null=True)
-    lname = models.CharField(max_length=100,null=True)
+    Id_number = models.CharField(max_length=100,primary_key=True,default="")
+    slug = models.SlugField(default="")
+    fname = models.CharField(max_length=100,blank=True,default="")
+    lname = models.CharField(max_length=100,blank=True,default="")
     gender = models.CharField(max_length=6,choices=boolChoice,null=True)
     dob = models.DateField()
-    email = models.EmailField(max_length = 254,null=True)
-    mobile = models.CharField(max_length=12,null=True)
+    email = models.EmailField(max_length = 254,blank=True,default="")
+    mobile = models.CharField(max_length=12,blank=True,default="")
     # role = models.CharField(max_length = 1,choices=boolrchoice,null=True)
-    dept = models.CharField(max_length = 10,choices=booldchoice,null=True)
-    enrollment = models.CharField(max_length=20,null=True)
-    id_no = models.CharField(max_length=10,null=True)
-    permanent_address = models.CharField(max_length=256,null=True)
-    state = models.CharField(max_length=100,null=True)
-    resident_address = models.CharField(max_length=100,null=True)
-    pincode = models.CharField(max_length=6,null=True)
-    city= models.CharField(max_length = 100,null=True)
-    country = models.CharField(max_length = 100,null=True)
-    ssc = models.CharField(max_length = 100,null=True)
-    ssc_result = models.FileField(null=True,upload_to='ssc_results/')
-    hsc = models.CharField(max_length = 100,null=True)
-    hsc_result = models.FileField(null=True,upload_to='hsc_results/')
-    skills = MultiSelectField(choices=boolschoice,null=True)
-    interest = MultiSelectField(choices=boolichoice,null=True)
+    dept = models.CharField(max_length = 10,choices=booldchoice,blank=True,default="")
+    enrollment = models.CharField(max_length=20,blank=True,default="")
+    id_no = models.CharField(max_length=10,blank=True,default="")
+    permanent_address = models.CharField(max_length=256,blank=True,default="")
+    state = models.CharField(max_length=100,blank=True,default="")
+    resident_address = models.CharField(max_length=100,blank=True,default="")
+    pincode = models.CharField(max_length=6,blank=True,default="")
+    city= models.CharField(max_length = 100,blank=True,default="")
+    country = models.CharField(max_length = 100,blank=True,default="")
+    ssc = models.CharField(max_length = 100,blank=True,default="")
+    ssc_result = models.FileField(blank=True, default="",upload_to='ssc_results/')
+    hsc = models.CharField(max_length = 100,blank=True,default="")
+    hsc_result = models.FileField(blank=True, default="",upload_to='hsc_results/')
+    # skills = MultiSelectField(choices=boolschoice,null=True)
+    skills = models.ManyToManyField(Skills, related_name='students_skills')
+    interest = MultiSelectField(choices=boolichoice,blank=True,default="")
     # skills = fields.MultipleChoiceField(choices=boolschoice)
     # interest = fields.MultipleChoiceField(choices=boolschoice)
+
+    def sscfilename(self):
+        return os.path.basename(self.ssc_result.name)
+
+    def hscfilename(self):
+        return os.path.basename(self.hsc_result.name)
 
 
 
