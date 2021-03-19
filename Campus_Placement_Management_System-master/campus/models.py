@@ -30,16 +30,22 @@ class User(AbstractUser):
     slug = models.SlugField(unique=True, default=uuid.uuid1)
     college_name = models.CharField(max_length =100, default="BVM")
 
-# class Admin(models.Model):
-#     username = models.CharField(unique=True,primary_key=True,max_length=20)
-#     # name= models.CharField(max_length = 100)
-#     # mobile_no = models.CharField(max_length=12)
-#     # email_id = models.CharField(max_length = 100)
-#     password = models.CharField(max_length=100)
-#     # college_name = models.CharField(max_length =100, default="BVM")
+class Marks(models.Model):
+    id_no = models.CharField(unique=True,max_length=20,null=True)
+    username = models.CharField(unique=True,max_length=100)
+    first_year = models.CharField(blank=True,max_length=20)
+    second_year = models.CharField(blank=True,max_length=20)
+    third_year = models.CharField(blank=True,max_length=20)
+    fourth_year = models.CharField(blank=True,max_length=20)
 
-#     # class Meta:
-#     #     db_table = "admin"
+    # name= models.CharField(max_length = 100)
+    # mobile_no = models.CharField(max_length=12)
+    # email_id = models.CharField(max_length = 100)
+    # password = models.CharField(max_length=100)
+    # college_name = models.CharField(max_length =100, default="BVM")
+
+    # class Meta:
+    #     db_table = "admin"
 
 
 
@@ -151,6 +157,7 @@ class Student(models.Model):
     email = models.EmailField(max_length = 254,blank=True,default="")
     mobile = models.CharField(max_length=12,blank=True,default="")
     # role = models.CharField(max_length = 1,choices=boolrchoice,null=True)
+<<<<<<< HEAD
     dept = models.CharField(max_length = 10,choices=booldchoice,blank=True,default="")
     enrollment = models.CharField(max_length=20,blank=True,default="")
     id_no = models.CharField(max_length=10,blank=True,default="")
@@ -167,6 +174,24 @@ class Student(models.Model):
     # skills = MultiSelectField(choices=boolschoice,null=True)
     skills = models.ManyToManyField(Skills, related_name='students_skills')
     interest = MultiSelectField(choices=boolichoice,blank=True,default="")
+=======
+    dept = models.CharField(max_length = 10,choices=booldchoice,null=True)
+    enrollment = models.CharField(max_length=20,null=True)
+    id_no = models.CharField(max_length=10,null=True)
+    permanent_address = models.CharField(max_length=256,null=True)
+    state = models.CharField(max_length=100,null=True)
+    resident_address = models.CharField(max_length=100,null=True)
+    pincode = models.CharField(max_length=6,null=True)
+    city= models.CharField(max_length = 100,null=True)
+    country = models.CharField(max_length = 100,null=True)
+    ssc = models.CharField(max_length = 100,null=True)
+    ssc_result = models.FileField(null=True,upload_to='ssc_results/')
+    hsc = models.CharField(max_length = 100,null=True)
+    hsc_result = models.FileField(null=True,upload_to='hsc_results/')
+    skills = MultiSelectField(choices=boolschoice,null=True)
+    # skills = models.SelectMultipleField(max_length=15,choices = boolschoice)
+    interest = MultiSelectField(choices=boolichoice,null=True)
+>>>>>>> 13d331b31cf26d89d095901e1e746c63ae160bde
     # skills = fields.MultipleChoiceField(choices=boolschoice)
     # interest = fields.MultipleChoiceField(choices=boolschoice)
 
@@ -178,18 +203,41 @@ class Student(models.Model):
 
 
 
-class Achievement(models.Model):
-
-    achieve_id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
-    student_name = models.CharField(max_length=100)
-    certificate_name= models.CharField(max_length = 100,blank=True)
-    field_type = models.CharField(max_length=100)
-    issuer_name = models.CharField(max_length = 100,blank=True)
-    certificate_img = models.FileField(null=True,upload_to='achievements/')
-    college_name = models.CharField(max_length =100, default="BVM")
+# class Achievement(models.Model):
+#     achieve_id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
+#     student_name = models.CharField(max_length=100)
+#     certificate_name= models.CharField(max_length = 100,blank=True)
+#     field_type = models.CharField(max_length=100)
+#     issuer_name = models.CharField(max_length = 100,blank=True)
+#     certificate_img = models.FileField(upload_to='achievements/')
+#     college_name = models.CharField(max_length =100, default="BVM")
 
     # class Meta:
     #     db_table = "achievements"
+class Achievement(models.Model):
+<<<<<<< HEAD
+
+    achieve_id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
+    student_name = models.CharField(max_length=100)
+=======
+    
+>>>>>>> c60cc55b994a3118df931bc9e041e26b44f781ff
+    certificate_name= models.CharField(max_length = 100,blank=True)
+    issuer_name = models.CharField(max_length = 100,blank=True)
+    certificate_img = models.FileField(null=True,upload_to='achievements/')
+<<<<<<< HEAD
+    college_name = models.CharField(max_length =100, default="BVM")
+=======
+>>>>>>> c60cc55b994a3118df931bc9e041e26b44f781ff
+
+    # class Meta:
+    #     db_table = "achievements"
+
+class Project(models.Model):
+    
+    project_name= models.CharField(max_length = 100,blank=True)
+    description = models.CharField(max_length = 500,blank=True)
+    url = models.URLField(max_length=100,blank=True)
 
 
 
@@ -286,6 +334,7 @@ class Faculties(models.Model):
 
 
 
+<<<<<<< HEAD
 class Project(models.Model):
     project_id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
     # subject_id = models.CharField(max_length=100)
@@ -295,6 +344,17 @@ class Project(models.Model):
     url = models.URLField(max_length=100,blank=True)
     rating_star = models.CharField(max_length =3,default="0")
     college_name = models.CharField(max_length =100, default="BVM")
+=======
+# class Project(models.Model):
+#     project_id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
+#     # subject_id = models.CharField(max_length=100)
+#     student_id = models.CharField(max_length = 100)
+#     project_name= models.CharField(max_length = 100,blank=True)
+#     description = models.CharField(max_length = 500,blank=True)
+#     url = models.URLField(max_length=100,blank=True)
+#     rating_star = models.CharField(max_length =3)
+#     college_name = models.CharField(max_length =100, default="BVM")
+>>>>>>> c60cc55b994a3118df931bc9e041e26b44f781ff
 
     # class Meta:
     #     db_table = "projects"
@@ -332,12 +392,15 @@ class Timetable(models.Model):
     college_name = models.CharField(max_length =100, default="BVM")
 
 class Events(models.Model):
-    event_id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
+    # event_id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
+    # faculty_name = models.CharField(max_length=200)
     event_name = models.CharField(max_length=200)
-    facultyy_name = models.CharField(max_length=200)
-    depart_name = models.CharField(max_length=200)
-    college_name = models.CharField(max_length =100, default="BVM")
-    event_date = models.DateField()
+    instructions = models.CharField(max_length=1000,blank=True)
+    url = models.URLField(max_length=100,blank=True)
+    file = models.FileField(upload_to='events/' ,blank=True)
+    # depart_name = models.CharField(max_length=200)
+    # college_name = models.CharField(max_length =100, default="BVM")
+    # event_date = models.DateField()
 
 
 

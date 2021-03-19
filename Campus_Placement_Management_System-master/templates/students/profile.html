@@ -2,7 +2,100 @@
 
 {% load static %}
 {% block content %}
+<<<<<<< HEAD
 
+=======
+<<<<<<< HEAD
+  
+  <div class="container-scroller">
+   {% include 'navbar.html' %}
+   <div class="container-fluid page-body-wrapper">
+        <!-- partial:partials/_navbar.html -->
+       
+
+    
+<div class="main-panel">
+<div class="content-wrapper">
+<<<<<<< HEAD
+<form method="POST" action="/students/profile/{{ request.user.slug }}">
+=======
+<form method="POST" action="/students/profile_submit" enctype="multipart/form-data">
+>>>>>>> c60cc55b994a3118df931bc9e041e26b44f781ff
+  {% csrf_token %}
+    <div class="col-12 grid-margin">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title">Student Details Form</h4>
+          <div class="form-sample">
+            <br>
+            <div class="card-description mt-6 mb-4 seperator"></div>
+            <center><span class="detail_tag text-center">Personal info</span></center>
+            <br>  
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label">First Name</label>
+                  <div class="col-sm-8">
+                    <input type="text"  name="fname" class="form-control" value="{{ student.fname }}" />
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label">Last Name</label>
+                  <div class="col-sm-8">
+                    <input type="text" name="lname" class="form-control" value="{{ student.lname }}" />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label">Gender</label>
+                  <div class="col-sm-8">
+                    <select  name="gender" class="form-control">
+                    {% if student.gender == 'Male' %}
+                        <option value="Male" selected="selected">Male</option>
+                        <option value="Female">Female</option>                          
+                    {% else %}
+                        <option value="Male">Male</option>
+                        <option value="Female" selected="selected">Female</option>  
+                    {% endif %}
+                    
+                      
+                      
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label">Date of Birth</label>
+                  <div class="col-sm-8">
+                    <input type="date"  name="dob" class="form-control" placeholder=""  value="{{ student.dob }}"/>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label">Email</label>
+                  <div class="col-sm-8">
+                    <input type="text" name="email" class="form-control" placeholder="Email ID"  value="{{ student.email }}"/>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label">Mobile No.</label>
+                  <div class="col-sm-8">
+                    <input type="text" name="mobile" class="form-control" placeholder="Mobile No." value="{{ student.mobile }}" />
+                  </div>
+=======
+
+>>>>>>> 13d331b31cf26d89d095901e1e746c63ae160bde
 <div class="container-scroller">
   {% include 'navbar.html' %}
   <div class="container-fluid page-body-wrapper">
@@ -22,6 +115,10 @@
                 <div class="form-group mt-4 mb-4 {{ message.tags }} alert-dismissible fade show" role="alert">
                   {{ message }}
                   
+<<<<<<< HEAD
+=======
+>>>>>>> d87d7eb1d0e87e8cfe36b0fb21b2118e5f3df3af
+>>>>>>> 13d331b31cf26d89d095901e1e746c63ae160bde
                 </div>
                 {% endfor %}
                 <div class="form-sample">
@@ -270,6 +367,18 @@
                     </div>
 
                   </div>
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+                </div>
+              </div>
+              <div class="col-md-6">
+<<<<<<< HEAD
+                 <div class="form-group row">
+            <label class="col-sm-3 col-form-label">SSC Result</label>
+            <input type="file" name="ssc_result" class="file-upload-default">
+=======
+>>>>>>> 13d331b31cf26d89d095901e1e746c63ae160bde
                   <br><br>
                   <div class="card-description  mb-4 seperator"></div>
                   <center><span class="detail_tag text-center">Educational info</span></center>
@@ -287,16 +396,57 @@
                     <div class="col-md-6">
                       <div class="form-group row">
                         <label class="col-sm-3 col-form-label">SSC Result</label>
+<<<<<<< HEAD
                         <input type="file" name="ssc_result" value="{{ student.sscfilename }}" class="file-upload-default">
+=======
+                        <input type="file" name="ssc_result" value="{{ student.ssc_result }}" class="file-upload-default">
+>>>>>>> d87d7eb1d0e87e8cfe36b0fb21b2118e5f3df3af
+>>>>>>> 13d331b31cf26d89d095901e1e746c63ae160bde
 
                         <!-- <div class="input-group col-sm-8">
               <input type="text" class="form-control file-upload-info" placeholder="Upload SSC Result" >
               <span class="input-group-append">
                 <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
               </span>
+<<<<<<< HEAD
             </div> -->
                         <div class="input-group col-sm-8">
                           <input type="text" class="form-control file-upload-info" value="{{ student.sscfilename }}"  disabled
+=======
+<<<<<<< HEAD
+            </div>
+                       </div>
+              </div>
+=======
+                <div class="form-group row">
+              <label></label>
+              
+              <input type="file" name="ssc_result" class="file-upload-default">
+              <div class="input-group col-xs-12">
+              <input type="text" class="form-control file-upload-info" disabled placeholder="Upload ssc_Result">
+              <span class="input-group-append">
+                <button class="file-upload-browse btn btn-success" type="button">Upload</button>
+              </span>
+            </div>
+          </div>
+                 
+           </div>
+>>>>>>> c60cc55b994a3118df931bc9e041e26b44f781ff
+              </div>
+              
+              
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label">HSC School name</label>
+                  <div class="col-sm-8">
+                    <input type="text" name="hsc" class="form-control" placeholder="ex. saint Xaviers"  value="{{ student.hsc }}" />
+=======
+            </div> -->
+                        <div class="input-group col-sm-8">
+                          <input type="text" class="form-control file-upload-info" value="{{ student.ssc_result }}"  disabled
+>>>>>>> 13d331b31cf26d89d095901e1e746c63ae160bde
                             placeholder="Upload SSC Result" required>
                           <span class="input-group-append">
                             <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
@@ -304,10 +454,15 @@
                         </div>
                       </div>
                     </div>
+<<<<<<< HEAD
+=======
+>>>>>>> d87d7eb1d0e87e8cfe36b0fb21b2118e5f3df3af
+>>>>>>> 13d331b31cf26d89d095901e1e746c63ae160bde
                   </div>
 
 
                 </div>
+<<<<<<< HEAD
                 <div class="row">
                   <div class="col-md-6">
                     <div class="form-group row">
@@ -325,18 +480,104 @@
 
                       <div class="input-group col-sm-8">
                         <input type="text" class="form-control file-upload-info" value="{{ student.hscfilename }}" disabled
+=======
+<<<<<<< HEAD
+              </div>
+              <div class="col-md-6">
+<<<<<<< HEAD
+                 <div class="form-group row">
+            <label class="col-sm-3 col-form-label">HSC Result</label>
+            <input type="file" name="hsc_result" class="file-upload-default" >
+
+            <div class="input-group col-sm-8">
+              <input type="text" class="form-control file-upload-info" disabled placeholder="Upload HSC Result" >
+              <span class="input-group-append">
+                <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
+              </span>
+            </div>
+                       </div>
+              </div>
+=======
+                <div class="form-group row">
+              <label></label>
+              
+              <input type="file" name="hsc_result" class="file-upload-default">
+              <div class="input-group col-xs-12">
+              <input type="text" class="form-control file-upload-info" disabled placeholder="Upload hsc_Result">
+              <span class="input-group-append">
+                <button class="file-upload-browse btn btn-success" type="button">Upload</button>
+              </span>
+            </div>
+          </div>
+                 
+           </div>
+>>>>>>> c60cc55b994a3118df931bc9e041e26b44f781ff
+            </div>
+            
+            
+            <!-- skills -->
+           <br><br>
+             <div class="card-description  mb-4 seperator"></div>
+            <center><span class="detail_tag text-center">Skills info</span></center>
+            <br>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label">Skills</label>
+                  <div class="col-sm-8">
+                  <select  name="skills" class="js-example-basic-multiple" multiple="multiple"  value="{{ student.skills }}" style="width:100%">
+                    <option value="wd">Web Development</option>
+                    <option value="ad">App Development</option>
+                    <option value="cd">Cloud Computing</option>
+                    <option value="excel">Excel</option>
+                    <option value="wp">Wordpress</option>
+                    <option value="react">React</option>
+                    <option value="dj">Django</option>
+                    <option value="bc">Block Chain</option>
+                    <option value="dm">Data Mining</option>
+                    <option value="py">Python</option>
+                    <option value="c">C/C++</option>
+                    <option value="j">Java</option>
+                  </select>
+=======
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group row">
+                      <label class="col-sm-3 col-form-label">HSC School name</label>
+                      <div class="col-sm-8">
+                        <input type="text" name="hsc" class="form-control" placeholder="ex. saint Xaviers"
+                          value="{{ student.hsc }}" />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group row">
+                      <label class="col-sm-3 col-form-label">HSC Result</label>
+                      <input type="file" name="hsc_result" value="{{ student.hsc_result }}" class="file-upload-default">
+
+                      <div class="input-group col-sm-8">
+                        <input type="text" class="form-control file-upload-info" value="{{ student.ssc_result }}" disabled
+>>>>>>> 13d331b31cf26d89d095901e1e746c63ae160bde
                           placeholder="Upload HSC Result">
                         <span class="input-group-append">
                           <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
                         </span>
                       </div>
                     </div>
+<<<<<<< HEAD
+=======
+>>>>>>> d87d7eb1d0e87e8cfe36b0fb21b2118e5f3df3af
+>>>>>>> 13d331b31cf26d89d095901e1e746c63ae160bde
                   </div>
                 </div>
 
 
                 <!-- skills -->
+<<<<<<< HEAD
                 <!-- <br><br>
+=======
+                <br><br>
+>>>>>>> 13d331b31cf26d89d095901e1e746c63ae160bde
                 <div class="card-description  mb-4 seperator"></div>
                 <center><span class="detail_tag text-center">Skills info</span></center>
                 <br>
@@ -345,6 +586,7 @@
                     <div class="form-group row">
                       <label class="col-sm-3 col-form-label">Skills</label>
                       <div class="col-sm-8">
+<<<<<<< HEAD
                         <select name="skills" class="js-example-basic-multiple skills" multiple="multiple"
                            style="width:100%">
                            <option value="wd"> Web_Development </option>
@@ -388,6 +630,49 @@
                     </div>
                   </div>
                 </div> -->
+=======
+                        <select name="skills" class="js-example-basic-multiple" multiple="multiple"
+                          value="{{ student.skills }}" style="width:100%">
+                          <option value="wd">Web Development</option>
+                          <option value="ad">App Development</option>
+                          <option value="cd">Cloud Computing</option>
+                          <option value="excel">Excel</option>
+                          <option value="wp">Wordpress</option>
+                          <option value="react">React</option>
+                          <option value="dj">Django</option>
+                          <option value="bc">Block Chain</option>
+                          <option value="dm">Data Mining</option>
+                          <option value="py">Python</option>
+                          <option value="c">C/C++</option>
+                          <option value="j">Java</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group row">
+                      <label class="col-sm-3 col-form-label">Area Of Interest</label>
+                      <div class="col-sm-8">
+                        <select name="interest" class="js-example-basic-multiple" multiple="multiple"
+                          value="{{ student.interest }}" style="width:100%">
+                          <option value="wd">Web Development</option>
+                          <option value="ad">App Development</option>
+                          <option value="cd">Cloud Computing</option>
+                          <option value="excel">Excel</option>
+                          <option value="wp">Wordpress</option>
+                          <option value="react">React</option>
+                          <option value="dj">Django</option>
+                          <option value="bc">Block Chain</option>
+                          <option value="dm">Data Mining</option>
+                          <option value="py">Python</option>
+                          <option value="c">C/C++</option>
+                          <option value="j">Java</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+>>>>>>> 13d331b31cf26d89d095901e1e746c63ae160bde
 
 
 
@@ -430,6 +715,7 @@
 
 <!-- End custom js for this page -->
 {% endblock content %}
+<<<<<<< HEAD
 
 
 {% block extrajs %}
@@ -445,3 +731,5 @@
 </script>
 
 {% endblock extrajs  %}
+=======
+>>>>>>> 13d331b31cf26d89d095901e1e746c63ae160bde

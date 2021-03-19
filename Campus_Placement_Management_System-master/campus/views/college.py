@@ -21,7 +21,11 @@ def home(request):
         elif request.user.is_student:
             return redirect('/students/index')
         else:
+<<<<<<< HEAD
         	return redirect('/c_admin/index')
+=======
+        	return render(request,'c_admin/admin.html')
+>>>>>>> c60cc55b994a3118df931bc9e041e26b44f781ff
     return redirect('/students/login')
 
 

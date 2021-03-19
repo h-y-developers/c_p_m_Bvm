@@ -132,7 +132,7 @@ from ..forms import DocumentForm
 #     success_url = reverse_lazy('students:students_profile')
 
 def shome(request):
-    return render(request,'students/login.html')
+    return redirect('/students/login')
 def StudentLoginView(request):
     if request.user.is_authenticated:
         return redirect('/students/index')
@@ -172,9 +172,20 @@ def StudentDashboardView(request):
     else:
         return redirect('students/login')
 
+
+
 def StudentEventView(request):
     if request.user.is_authenticated and request.user.is_student:
-        return render(request,"students/assignments.html")
+        userr = Events.objects.all()
+        context = {
+            'events':userr
+        }
+        return render(request,"students/events_see.html",context)
+    else:
+        return redirect('students/login')
+def StudentCertificateadd(request):
+    if request.user.is_authenticated and request.user.is_student:
+        return render(request,"students/certificate.html")
     else:
         return redirect('students/login')
 
@@ -185,6 +196,7 @@ def StudentCertificateView(request):
             issuer_name = request.POST.get('company')
             field = request.POST.get('field')
             certificate_img = request.FILES['certi']
+<<<<<<< HEAD
             form = Achievement(student_name= request.user.username,certificate_name=certificate_name,issuer_name=issuer_name,field_type = field,certificate_img=certificate_img)
             # form = Achievements(request.POST,request.FILES)
             form.save()
@@ -192,9 +204,22 @@ def StudentCertificateView(request):
 
         
         return render(request,"students/certificate.html")
+=======
+            form = Achievement(certificate_name=certificate_name,issuer_name=issuer_name,certificate_img=certificate_img)
+            # form = Achievements(request.POST,request.FILES)
+            form.save()
+            return redirect('/students/achievements')
+            # return render(request,"students/achievements.html")
+        else:
+            return render(request,"students/certificate.html")
     else:
         return redirect('students/login')
-
+def StudentProjectadd(request):
+    if request.user.is_authenticated and request.user.is_student:
+        return render(request,"students/add_project.html")
+>>>>>>> c60cc55b994a3118df931bc9e041e26b44f781ff
+    else:
+        return redirect('students/login')
 def StudentExamView(request):
     if request.user.is_authenticated and request.user.is_student:
         return render(request,"students/exams.html")
@@ -222,6 +247,16 @@ def Studentproject(request):
         return redirect('students/login')    
 
 
+def StudentProjectsee(request):
+    if request.user.is_authenticated and request.user.is_student:
+        project = Project.objects.all()
+        context = {
+            'projects':project
+        }
+        return render(request,"students/project_see.html",context)
+    else:
+        return redirect('students/login')
+
 def StudentProjectView(request):
     if request.user.is_authenticated and request.user.is_student:
         if request.method == "POST":
@@ -231,17 +266,31 @@ def StudentProjectView(request):
             form = Project(student_name = request.user.username,project_name=project_name,description=description,url=url)
             form.save()
             return redirect('/students/projects')
+<<<<<<< HEAD
+=======
+            # return render(request,"students/projects.html")
+>>>>>>> c60cc55b994a3118df931bc9e041e26b44f781ff
         else:
             return render(request,"students/add_project.html")
-    else:
+    
         return redirect('students/login')
 
+<<<<<<< HEAD
 def studentsProfilesee(request):
     if request.user.is_authenticated and request.user.is_student:
+
         return render(request,"students/profile.html")
     else:
         return redirect('/login')
+=======
+def StudentProfileadd(request):
+    if request.user.is_authenticated and request.user.is_student:
+        return render(request,"students/profile.html")
+    else:
+        return redirect('students/login')
+>>>>>>> c60cc55b994a3118df931bc9e041e26b44f781ff
 
+<<<<<<< HEAD
 def decode_skill(skills):
     """
     Decode pizza pie toppings
@@ -264,6 +313,71 @@ def StudentProfileUpdateView(request,slug):
         email = request.POST.get('email')
         mobile = request.POST.get('mobile')
             # role = request.POST.get('role')
+=======
+<<<<<<< HEAD
+
+
+def StudentProfileView(request,slug):
+    if request.user.is_authenticated and request.user.is_student:
+<<<<<<< HEAD
+        if request.method == "POST" and 'ssc_result' in request.FILES or 'hsc_result' in request.FILES:
+
+=======
+        if request.method == "POST" or 'ssc_result' in request.FILES or 'hsc_result' in request.FILES:
+>>>>>>> c60cc55b994a3118df931bc9e041e26b44f781ff
+            fname = request.POST.get('fname')
+            lname = request.POST.get('lname')
+            gender = request.POST.get('gender')
+            dob = request.POST.get('dob')
+            email = request.POST.get('email')
+            mobile = request.POST.get('mobile')
+            # role = request.POST.get('role')
+            dept = request.POST.get('dept')
+            enrollment = request.POST.get('enrollment')
+            id_no = request.POST.get('id_no')
+            permanent_address = request.POST.get('permanent_address')
+            state = request.POST.get('state')
+            resident_address = request.POST.get('resident_address')
+            pincode = request.POST.get('pincode')
+            city = request.POST.get('city')
+            country = request.POST.get('country')
+            ssc = request.POST.get('ssc')
+<<<<<<< HEAD
+            ssc_res = request.FILES['ssc_result']
+            hsc = request.POST.get('hsc')
+            hsc_res = request.FILES['hsc_result']
+=======
+            ssc_result = request.FILES['ssc_result']
+            hsc = request.POST.get('hsc')
+            hsc_result = request.FILES['hsc_result']
+>>>>>>> c60cc55b994a3118df931bc9e041e26b44f781ff
+            skills = request.POST.get('skills')
+            interest = request.POST.get('interest')
+=======
+def decode_skill(skills):
+    """
+    Decode pizza pie toppings
+    """
+    skill = dict(Student.boolschoice)
+    decoded = [skill[t] for t in skills]
+    decoded.sort()
+    return ', '.join(decoded)
+
+
+def StudentProfileUpdateView(request,slug):
+    if request.method == "POST" and 'ssc_result' in request.FILES or 'hsc_result' in request.FILES:
+        skills = request.POST.get('skills')
+        # skil = dict(Student.boolschoice)
+        # skill = [skil[t] for t in skills]
+        
+        fname = request.POST.get('fname')
+        lname = request.POST.get('lname')
+        gender = request.POST.get('gender')
+        dob = request.POST.get('dob')
+        email = request.POST.get('email')
+        mobile = request.POST.get('mobile')
+            # role = request.POST.get('role')
+>>>>>>> 13d331b31cf26d89d095901e1e746c63ae160bde
         dept = request.POST.get('dept')
         enrollment = request.POST.get('enrollment')
         id_no = request.POST.get('id_no')
@@ -277,8 +391,14 @@ def StudentProfileUpdateView(request,slug):
         ssc_res = request.FILES['ssc_result']
         hsc = request.POST.get('hsc')
         hsc_res = request.FILES['hsc_result']
+<<<<<<< HEAD
         skill = request.POST.get('skills')
         interest = request.POST.get('interest')
+=======
+        
+        interest = request.POST.get('interest')
+>>>>>>> d87d7eb1d0e87e8cfe36b0fb21b2118e5f3df3af
+>>>>>>> 13d331b31cf26d89d095901e1e746c63ae160bde
             
         try:
             
@@ -311,6 +431,7 @@ def StudentProfileUpdateView(request,slug):
             url = '/students/profile/'+str(slug)
             return redirect(url)
 
+<<<<<<< HEAD
             
         except:
             form = Student.objects.create(Id_number= request.user.username,slug=slug,fname=fname,lname=lname,gender=gender,dob=dob,email=email,
@@ -323,10 +444,39 @@ def StudentProfileUpdateView(request,slug):
             # form.skills.set(skill)
             form.save()
             messages.success(request,"Inserted")
+=======
+        userr = User.objects.get(slug = slug)
+
+        form = Student(Id_number= userr.username,fname=fname,lname=lname,gender=gender,dob=dob,email=email,
+        mobile=mobile,dept=dept,enrollment=enrollment,id_no=id_no,
+            permanent_address=permanent_address,state=state,resident_address=resident_address,
+            pincode=pincode,city=city,country=country,ssc=ssc,ssc_result=ssc_res,
+            hsc=hsc,hsc_result=hsc_res,skills=skills,interest=interest)
+<<<<<<< HEAD
+            form.save()
+<<<<<<< HEAD
+>>>>>>> 13d331b31cf26d89d095901e1e746c63ae160bde
             url = '/students/profile/'+str(slug)
             return redirect(url)
+=======
+        form.save()
+        messages.success(request,"Updated")
+        url = '/students/profile/'+str(slug)
+        return redirect(url)
+    else:
+        try:
+            userr = Student.objects.get(slug=slug)
+        except:
+            userr = None
+        context={
+                'student' : userr
+        }
+        return render(request,"students/profile.html",context)
+        
+>>>>>>> d87d7eb1d0e87e8cfe36b0fb21b2118e5f3df3af
 
 
+<<<<<<< HEAD
         
     else:
         url = '/students/profile/'+str(slug)
@@ -334,6 +484,8 @@ def StudentProfileUpdateView(request,slug):
         
 
 
+=======
+>>>>>>> 13d331b31cf26d89d095901e1e746c63ae160bde
 def StudentProfileView(request,slug):
     if request.user.is_authenticated and request.user.is_student:
         # if request.method == "POST" and 'ssc_result' in request.FILES or 'hsc_result' in request.FILES:
@@ -391,6 +543,14 @@ def StudentProfileView(request,slug):
     # else:
     #     return HttpResponse("<h1>not happening</h1>")
             
+=======
+            return redirect('/students/profile') 
+            # return render(request,"students/index.html")
+
+        
+        # return render(request,"students/profile.html")
+   
+>>>>>>> c60cc55b994a3118df931bc9e041e26b44f781ff
     else:
         return redirect('students/login')
      

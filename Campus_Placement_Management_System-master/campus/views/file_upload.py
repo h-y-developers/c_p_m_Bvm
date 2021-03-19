@@ -45,3 +45,6 @@ def simple_upload(request):
 
     return render(request, 'c_admin/admin.html')
     # return redirect('c_admin/add_student')
+
+
+    

@@ -34,9 +34,23 @@ from django.conf.urls import url
 
 # from .views import college,c_admin,faculty,student
 
+<<<<<<< HEAD
 from .views.c_admin import (AdminForgetPassView,AdminLogoutView,AdminLoginView,AdminStudentView, AdminFacultyView, AdminAddAdminView,AdminCompanyView)
 
 from .views.student import (StudentProfileUpdateView,StudentCertificateView,StudentForgetPassView,StudentLogoutView,StudentLoginView,StudentProfileView, StudentDashboardView,StudentLoginView,StudentAchievementView,StudentExamView,StudentProjectView,StudentEventView,Studentproject,studentsProfilesee)
+=======
+from .views.c_admin import (AdminForgetPassView,AdminLogoutView,AdminLoginView,AdminStudentView, AdminFacultyView, AdminAddAdminView,AdminCompanyView,AdminStudentMarksView)
+
+<<<<<<< HEAD
+<<<<<<< HEAD
+from .views.student import (shome,StudentCertificateView,StudentForgetPassView,StudentLogoutView,StudentLoginView,StudentProfileView, StudentDashboardView,StudentLoginView,StudentAchievementView,StudentExamView,StudentProjectView,StudentEventView,Studentproject,studentsProfilesee,StudentProjectsee)
+=======
+from .views.student import (shome,StudentCertificateView,StudentCertificateadd,StudentForgetPassView,StudentLogoutView,StudentLoginView,StudentProfileView, StudentProfileadd,StudentDashboardView,StudentLoginView,StudentAchievementView,StudentExamView,StudentProjectView,StudentEventView,Studentproject,StudentProjectadd)
+>>>>>>> c60cc55b994a3118df931bc9e041e26b44f781ff
+=======
+from .views.student import (shome,StudentProfileUpdateView,StudentCertificateView,StudentForgetPassView,StudentLogoutView,StudentLoginView,StudentProfileView, StudentDashboardView,StudentLoginView,StudentAchievementView,StudentExamView,StudentProjectView,StudentEventView,Studentproject,studentsProfilesee)
+>>>>>>> d87d7eb1d0e87e8cfe36b0fb21b2118e5f3df3af
+>>>>>>> 13d331b31cf26d89d095901e1e746c63ae160bde
 
 from .views.faculty import (FacultyForgetPassView,FacultyLogoutView,FacultyLoginView,FacultyDashboardView,FacultyProfileView,FacultyEventView,FacultyAddEventView)
 
@@ -98,21 +112,39 @@ urlpatterns = [
     # path('students/achievements', student.StudentAchievementView, name='student_achievements'),
     
     path('students/login',StudentLoginView,name="student_login"),
+<<<<<<< HEAD
     path('students/profile/<str:slug>', StudentProfileView, name="student_profile"),
+<<<<<<< HEAD
     # path('students/profile/<str:slug>/add_skill', insertSkill, name="add_skill"),
+=======
+>>>>>>> 13d331b31cf26d89d095901e1e746c63ae160bde
     path('students/profile/<str:slug>/update', StudentProfileUpdateView, name="student_update_profile"),
     # path('students/profile_see', studentsProfilesee, name="student_profile_see"),
     path('students/', StudentDashboardView, name='student_dashboard'),
     path('students/index', StudentDashboardView, name='student_dashboard'),
     path('students/exams', StudentExamView, name='student_exams'),
     path('students/add_achievement', StudentCertificateView, name='student_cerificate'),
+=======
+    path('students/profile_submit', StudentProfileView, name="student_profile_submit"),
+    path('students/profile', StudentProfileadd, name="student_profile"),
+    path('students/', StudentDashboardView, name='student_dashboard'),
+    path('students/index', StudentDashboardView, name='student_dashboard'),
+    path('students/exams', StudentExamView, name='student_exams'),
+    path('students/certi', StudentCertificateadd, name='student_cerificate'),
+>>>>>>> c60cc55b994a3118df931bc9e041e26b44f781ff
     path('students/certi_submit', StudentCertificateView, name='student_cerificate_submit'),
     # path('students/assignments', StudentAssignmentView, name='student_assignments'),
-    path('students/add_projects', StudentProjectView, name='student_projects'),
+    path('students/add_projects', StudentProjectadd, name='student_projects'),
+    path('students/projects_submit', StudentProjectView, name='student_submit_projects'),
     path('students/projects', Studentproject, name='student_add_projects'),
+    path('students/project_see', StudentProjectsee, name="student_project_see"),
     # path('students/timetable', StudentTimetableView, name='student_timetable'),
     path('students/achievements', StudentAchievementView, name='student_achievements'),
+<<<<<<< HEAD
     
+    path('students/events', StudentEventView, name='student_Events'),
+=======
+>>>>>>> c60cc55b994a3118df931bc9e041e26b44f781ff
     path('students/certi', StudentCertificateView, name='student_achievements'),
     path('students/logout', StudentLogoutView, name='student_logout'),
     path('students/forgetPassword', StudentForgetPassView, name='student_forget'),
@@ -132,7 +164,7 @@ urlpatterns = [
     path('c_admin/', AdminAddAdminView, name='admin_dashboard'),
     path('c_admin/index', AdminAddAdminView, name='admin_add_admin'),
     path('c_admin/add_company', AdminCompanyView, name='admin_add_company'),
-    path('c_admin/add_faculty', AdminFacultyView, name='admin_add_faculty'),
+    path('c_admin/add_faculty', AdminStudentMarksView, name='admin_add_faculty'),
     path('c_admin/add_student', AdminStudentView, name='admin_add_student'),
     path('c_admin/login',AdminLoginView,name='admin_login'),
     path('c_admin/logout',AdminLogoutView,name='admin_logout'),
